@@ -642,5 +642,10 @@ Running handlers complete
 
 ## Bootstrapping Windows Chef Nodes ( Do this from Chef Workstation Machine )
 ```
-knife boostrap windows-chef-node -o winrm -U Administrator -P admin@123 --node-name windows-chef-node -p 5985`
+knife bootstrap windows-chef-node -o winrm -U Administrator -P admin@123 --node-name windows-chef-node -p 5985`
 ```
+
+Expected output
+<pre>
+
+</pre>
