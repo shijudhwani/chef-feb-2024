@@ -345,6 +345,19 @@ public (active)
   rich rules:  
 </pre>
 
+
+## Make sure your RHEL Chef Server /etc/hosts is updated with Chef Server, Workstation and node IP addresses
+<pre>
+[root@rhel-chef-server ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.1.65 rhel-chef-server
+192.168.1.66 rhel-chef-workstation
+192.168.1.67 rhel-chef-node
+192.168.1.151 windows-chef-node 
+</pre>
+
 ## Installing Chef Workstation in RHEL v8.9
 
 #### First we need to install Ruby 3.1
@@ -404,6 +417,21 @@ Chef Habitat version: 1.6.351
 </pre>
 
 ## Connecting Chef Workstation with Chef Server ( Do this in Chef Workstation Machine )
+
+#### Make sure your Chef Workstation /etc/file has the IP addresses of your Chef Server, Chef Workstation and respective Chef nodes
+<pre>
+[root@rhel-chef-workstation ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.1.65 rhel-chef-server
+192.168.1.66 rhel-chef-workstation
+192.168.1.67 rhel-chef-node
+192.168.1.151 windows-chef-node 
+</pre>
+
+
+You may now configure knife tool to connect with Chef server
 ```
 knife --version
 knife configure
@@ -435,16 +463,13 @@ jegan@rhel-chef-server's password:
 jegan.pem                                                                                    100% 1678   748.2KB/s   00:00    
 [root@rhel-chef-workstation .chef]# ls
 credentials  jegan.pem
-
 </pre>
-
 
 #### Download the self-signed certificate from Chef Server to Chef Workstation ( Do this in Chef Workstation Machine )
 ```
 knife ssl fetch
 knife ssl check
 knife config list-profiles
-
 ```
 
 Expected output
@@ -468,6 +493,12 @@ Successfully verified certificates from `rhel-chef-server'
  
 </pre>
 
+At this point, no Chef nodes are connected with Chef server
+```
+knife node list
+```
+You will see an empty list.
+
 #### Troubleshooting ssl fetch errors
 ```
 knife ssl fetch
@@ -485,7 +516,6 @@ ERROR: Errno::EHOSTUNREACH: No route to host - connect(2) for "rhel-chef-server"
 </pre>
 
 
-
 ## Configuring chef server ip in windows node
 ```
 C:\Windows\system32\drivers\etc\host file
@@ -499,12 +529,118 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 ```
 
-## Bootstrapping RHEL Chef Nodes
+## Bootstrapping RHEL Chef Nodes ( Do this from Chef Workstation Machine )
 ```
 knife bootstrap rhel-chef-node --ssh-user root --ssh-password admin@123 --node-name rhel-chef-node
 ```
 
-## Bootstrapping Windows Chef Nodes
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# knife bootstrap rhel-chef-node --ssh-user root --ssh-password root --node-name rhel-chef-node
+--ssh-user: This flag is deprecated. Use -U/--connection-user instead.
+--ssh-password: This flag is deprecated. Use -P/--connection-password instead.
++---------------------------------------------+
+            Chef License Acceptance
+
+Before you can continue, 2 product licenses
+must be accepted. View the license at
+https://www.chef.io/end-user-license-agreement/
+
+Licenses that need accepting:
+  * Chef Infra Client
+  * Chef InSpec
+
+Do you accept the 2 product licenses (yes/no)?
+
+> yes
+
+Persisting 2 product licenses...
+✔ 2 product licenses persisted.
+
++---------------------------------------------+
+Connecting to rhel-chef-node using ssh
+The authenticity of host 'rhel-chef-node (192.168.1.67)' can't be established.
+fingerprint is SHA256:0f05sz2b6js2LveFNwlWr0duVEKL+4oiDHAC0nRdfMU.
+
+Are you sure you want to continue connecting
+? (Y/N) Y
+Connecting to rhel-chef-node using ssh
+Creating new client for rhel-chef-node
+Creating new node for rhel-chef-node
+Bootstrapping rhel-chef-node
+ [rhel-chef-node] -----> Installing Chef Omnibus (stable/17)
+downloading https://omnitruck.chef.io/chef/install.sh
+  to file /tmp/install.sh.5606/install.sh
+
+     [2024-02-25T01:06:57+05:30] WARN: Error connecting to https://rhel-chef-server/organizations/tektutor/data-collector, retry 2/5
+     [2024-02-25T01:07:02+05:30] WARN: Error connecting to https://rhel-chef-server/organizations/tektutor/data-collector, retry 3/5
+     [2024-02-25T01:07:07+05:30] WARN: Error connecting to https://rhel-chef-server/organizations/tektutor/data-collector, retry 4/5
+     [2024-02-25T01:07:13+05:30] WARN: Error connecting to https://rhel-chef-server/organizations/tektutor/data-collector, retry 5/5
+     [2024-02-25T01:07:18+05:30] WARN: Error while reporting run start to Data Collector. URL: https://rhel-chef-server:443/organizations/tektutor/data-collector Exception: No HTTP Code -- Error connecting to https://rhel-chef-server/organizations/tektutor/data-collector - Failed to open TCP connection to rhel-chef-server:443 (getaddrinfo: Name or service not known) 
+     [2024-02-25T01:07:18+05:30] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
+     [2024-02-25T01:07:18+05:30] FATAL: ---------------------------------------------------------------------------------------
+     [2024-02-25T01:07:18+05:30] FATAL: PLEASE PROVIDE THE CONTENTS OF THE stacktrace.out FILE (above) IF YOU FILE A BUG REPORT
+     [2024-02-25T01:07:18+05:30] FATAL: ---------------------------------------------------------------------------------------
+     [2024-02-25T01:07:18+05:30] FATAL: SocketError: Error connecting to https://rhel-chef-server/organizations/tektutor/nodes/rhel-chef-node - Failed to open TCP connection to rhel-chef-server:443 (getaddrinfo: Name or service not known)
+      warning: /tmp/install.sh.5629/chef-17.10.114-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 83ef826a: NOKEY 
+</pre>
+
+Troubleshooting above error, we need to add the Server IP address in the /etc/hosts file as shown below on the rhel-chef-node
+<pre>
+[root@rhel-chef-node ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+192.168.1.65 rhel-chef-server
+192.168.1.66 rhel-chef-workstation
+192.168.1.67 rhel-chef-node 
+</pre>
+
+Now, let's retry the boostrapping
+
+```
+knife bootstrap rhel-chef-node --ssh-user root --ssh-password root --node-name rhel-chef-node
+```
+
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# knife bootstrap rhel-chef-node --ssh-user root --ssh-password root --node-name rhel-chef-node
+--ssh-user: This flag is deprecated. Use -U/--connection-user instead.
+--ssh-password: This flag is deprecated. Use -P/--connection-password instead.
+Connecting to rhel-chef-node using ssh
+The authenticity of host 'rhel-chef-node (192.168.1.67)' can't be established.
+fingerprint is SHA256:0f05sz2b6js2LveFNwlWr0duVEKL+4oiDHAC0nRdfMU.
+
+Are you sure you want to continue connecting
+? (Y/N) Y
+Connecting to rhel-chef-node using ssh
+Node rhel-chef-node exists, overwrite it? (Y/N) Y
+Client rhel-chef-node exists, overwrite it? (Y/N) Y
+Creating new client for rhel-chef-node
+Creating new node for rhel-chef-node
+Bootstrapping rhel-chef-node
+ [rhel-chef-node] -----> Existing Chef Infra Client installation detected
+ [rhel-chef-node] Starting the first Chef Infra Client Client run...
+ [rhel-chef-node] Chef Infra Client, version 17.10.114
+Patents: https://www.chef.io/patents
+Infra Phase starting
+ [rhel-chef-node] Resolving cookbooks for run list: []
+ [rhel-chef-node] Synchronizing cookbooks:
+ [rhel-chef-node] Installing cookbook gem dependencies:
+ [rhel-chef-node] Compiling cookbooks...
+ [rhel-chef-node] Loading Chef InSpec profile files:
+ [rhel-chef-node] Loading Chef InSpec input files:
+Loading Chef InSpec waiver files:
+ [rhel-chef-node] [2024-02-25T01:10:08+05:30] WARN: Node rhel-chef-node has an empty run list.
+ [rhel-chef-node] Converging 0 resources
+ [rhel-chef-node] 
+Running handlers:
+Running handlers complete
+ [rhel-chef-node] Infra Phase complete, 0/0 resources updated in 04 seconds 
+</pre>
+
+
+## Bootstrapping Windows Chef Nodes ( Do this from Chef Workstation Machine )
 ```
 knife boostrap windows-chef-node -o winrm -U Administrator -P admin@123 --node-name windows-chef-node -p 5985`
 ```
