@@ -1,5 +1,11 @@
 # chef-feb-2024
 
+## Configuring chef server ip in windows node
+```
+C:\Windows\system32\drivers\etc\host file
+```
+
+
 ## Need to enable winrm in windows machine in Powershell
 ```
 winrm quickconfig
