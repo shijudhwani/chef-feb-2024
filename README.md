@@ -447,7 +447,32 @@ knife ssl check
 
 Expected output
 <pre>
- 
+[root@rhel-chef-workstation ~]# knife ssl fetch
+WARNING: Certificates from rhel-chef-server will be fetched and placed in your trusted_cert
+       directory (/root/.chef/trusted_certs).
+       
+       Knife has no means to verify these are the correct certificates. You should
+       verify the authenticity of these certificates after downloading.
+Adding certificate for rhel-chef-server in /root/.chef/trusted_certs/rhel-chef-server.crt
+[root@rhel-chef-workstation ~]# knife ssl check
+Connecting to host rhel-chef-server:443
+Successfully verified certificates from `rhel-chef-server' 
+</pre>
+
+#### Troubleshooting ssl fetch errors
+```
+knife ssl fetch
+```
+
+If you get this output, make sure you opened 443 port in rhel-chef-server
+<pre>
+root@rhel-chef-workstation ~]# knife ssl fetch
+WARNING: Certificates from rhel-chef-server will be fetched and placed in your trusted_cert
+       directory (/root/.chef/trusted_certs).
+       
+       Knife has no means to verify these are the correct certificates. You should
+       verify the authenticity of these certificates after downloading.
+ERROR: Errno::EHOSTUNREACH: No route to host - connect(2) for "rhel-chef-server" port 443 
 </pre>
 
 
