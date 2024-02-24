@@ -1,5 +1,24 @@
 # chef-feb-2024
 
+## Installing Chef Workstation
+https://docs.chef.io/workstation/install_workstation/
+
+## Installing Chef Server
+https://docs.chef.io/server/install_server/
+
+## Installing Chef Node
+
+
+## Installing Ruby 3 from source code on Chef Server
+```
+cd ~/Downloads
+wget https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.2.tar.gz
+tar xvfz ruby-3.0.2.tar.gz
+
+sudo yum groupinstall development tools
+
+```
+
 ## Installing Chef Server in RHEL 9.3
 ```
 
