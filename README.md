@@ -350,6 +350,15 @@ The App will then be available in the system tray.
 
 Thank you for installing Chef Workstation!
 You can find some tips on getting started at https://docs.chef.io/workstation/getting_started/
+
+[root@rhel-chef-workstation ~]# chef -v
+Chef Workstation version: 21.10.640
+Test Kitchen version: 3.1.0
+Cookstyle version: 7.25.6
+Chef Infra Client version: 17.6.18
+Chef InSpec version: 4.46.13
+Chef CLI version: 5.4.2
+Chef Habitat version: 1.6.351
  
 </pre>
 
