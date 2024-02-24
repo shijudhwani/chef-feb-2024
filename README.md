@@ -1,6 +1,6 @@
 # Chef Feb 2024
 
-## Installing Chef Server in RHEL 9.3
+## Installing Chef Server in RHEL v8.9
 ```
 yum module list ruby
 yum install @ruby:3.1
