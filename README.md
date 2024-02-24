@@ -304,6 +304,55 @@ User jegan was added to server-admins. This user can now list, read, create, and
 [root@rhel-chef-server ~]#   
 </pre>
 
+## Installing Chef Workstation in RHEL v8.9
+
+#### First we need to install Ruby 3.1
+```
+yum module list ruby
+yum install @ruby:3.1
+ruby --version
+```
+
+Now let's proceed with Chef workstation installation. For other OS refer https://docs.chef.io/workstation/install_workstation/
+```
+sudo -i
+wget https://packages.chef.io/files/stable/chef-workstation/21.10.640/el/8/chef-workstation-21.10.640-1.el8.x86_64.rpm
+rpm -ivh ./chef-workstation-21.10.640-1.el8.x86_64.rpm
+chef -v
+```
+
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# wget https://packages.chef.io/files/stable/chef-workstation/21.10.640/el/8/chef-workstation-21.10.640-1.el8.x86_64.rpm
+--2024-02-25 00:29:48--  https://packages.chef.io/files/stable/chef-workstation/21.10.640/el/8/chef-workstation-21.10.640-1.el8.x86_64.rpm
+Resolving packages.chef.io (packages.chef.io)... 199.232.106.110
+Connecting to packages.chef.io (packages.chef.io)|199.232.106.110|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 131027652 (125M) [application/x-rpm]
+Saving to: ‘chef-workstation-21.10.640-1.el8.x86_64.rpm’
+
+chef-workstation-21.10.640-1.el 100%[======================================================>] 124.96M  24.2MB/s    in 5.5s    
+
+2024-02-25 00:29:57 (22.6 MB/s) - ‘chef-workstation-21.10.640-1.el8.x86_64.rpm’ saved [131027652/131027652]
+
+[root@rhel-chef-workstation ~]# rpm -ivh ./chef-workstation-21.10.640-1.el8.x86_64.rpm
+warning: ./chef-workstation-21.10.640-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 83ef826a: NOKEY
+Verifying...                          ################################# [100%]
+Preparing...                          ################################# [100%]
+Updating / installing...
+   1:chef-workstation-21.10.640-1.el8 ################################# [100%]
+ldd: /opt/chef-workstation/components/chef-workstation-app/chef-workstation-app: No such file or directory
+
+The Chef Workstation App is available.
+
+Launch the App by running 'chef-workstation-app'.
+The App will then be available in the system tray.
+
+Thank you for installing Chef Workstation!
+You can find some tips on getting started at https://docs.chef.io/workstation/getting_started/
+ 
+</pre>
+
 
 ## Configuring chef server ip in windows node
 ```
