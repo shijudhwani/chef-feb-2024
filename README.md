@@ -304,6 +304,47 @@ User jegan was added to server-admins. This user can now list, read, create, and
 [root@rhel-chef-server ~]#   
 </pre>
 
+#### Open Chef Server ports
+```
+firewall-cmd --permanent --add-service https
+firewall-cmd --permanent --add-service http
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --add-port=8443/tcp
+firewall-cmd --permanent --add-port=443/tcp
+firewall-cmd --reload
+firewall-cmd --list-all
+```
+Expected output
+<pre>
+[root@rhel-chef-server ~]# firewall-cmd --permanent --add-service https
+success
+[root@rhel-chef-server ~]# firewall-cmd --permanent --add-service http
+success
+[root@rhel-chef-server ~]# firewall-cmd --permanent --add-port=80/tcp
+success
+[root@rhel-chef-server ~]# firewall-cmd --permanent --add-port=8443/tcp
+success
+[root@rhel-chef-server ~]# firewall-cmd --permanent --add-port=443/tcp
+success
+[root@rhel-chef-server ~]# firewall-cmd --reload
+success
+[root@rhel-chef-server ~]# firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3
+  sources: 
+  services: cockpit dhcpv6-client http https ssh
+  ports: 80/tcp 8443/tcp 443/tcp
+  protocols: 
+  forward: no
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules:  
+</pre>
+
 ## Installing Chef Workstation in RHEL v8.9
 
 #### First we need to install Ruby 3.1
@@ -361,6 +402,54 @@ Chef CLI version: 5.4.2
 Chef Habitat version: 1.6.351
  
 </pre>
+
+## Connecting Chef Workstation with Chef Server ( Do this in Chef Workstation Machine )
+```
+knife --version
+knife configure
+
+cd /root/.chef
+scp jegan@rhel-chef-server:/home/jegan/jegan.pem .
+```
+
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# knife --version
+Chef Infra Client: 17.6.18
+[root@rhel-chef-workstation ~]# knife configure
+WARNING: No knife configuration file found. See https://docs.chef.io/config_rb/ for details.
+Please enter the chef server URL: [https://rhel-chef-workstation/organizations/myorg] https://rhel-chef-server:443/organizations/tektutor    
+Please enter an existing username or clientname for the API: [root] jegan
+*****
+
+You must place your client key in:
+  /root/.chef/jegan.pem
+Before running commands with Knife
+
+*****
+Knife configuration file written to /root/.chef/credentials 
+
+[root@rhel-chef-workstation ~]# cd /root/.chef
+[root@rhel-chef-workstation .chef]# scp jegan@rhel-chef-server:/home/jegan/jegan.pem .
+jegan@rhel-chef-server's password: 
+jegan.pem                                                                                    100% 1678   748.2KB/s   00:00    
+[root@rhel-chef-workstation .chef]# ls
+credentials  jegan.pem
+
+</pre>
+
+
+#### Download the self-signed certificate from Chef Server to Chef Workstation ( Do this in Chef Workstation Machine )
+```
+knife ssl fetch
+knife ssl check
+```
+
+Expected output
+<pre>
+ 
+</pre>
+
 
 
 ## Configuring chef server ip in windows node
