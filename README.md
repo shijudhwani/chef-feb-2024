@@ -443,6 +443,8 @@ credentials  jegan.pem
 ```
 knife ssl fetch
 knife ssl check
+knife config list-profiles
+
 ```
 
 Expected output
@@ -454,9 +456,16 @@ WARNING: Certificates from rhel-chef-server will be fetched and placed in your t
        Knife has no means to verify these are the correct certificates. You should
        verify the authenticity of these certificates after downloading.
 Adding certificate for rhel-chef-server in /root/.chef/trusted_certs/rhel-chef-server.crt
+ 
 [root@rhel-chef-workstation ~]# knife ssl check
 Connecting to host rhel-chef-server:443
 Successfully verified certificates from `rhel-chef-server' 
+
+[root@rhel-chef-workstation ~]# knife config list-profiles
+ Profile  Client  Key                Server                                              
+--------------------------------------------------------------------------------------
+*default  jegan   ~/.chef/jegan.pem  https://rhel-chef-server:443/organizations/tektutor 
+ 
 </pre>
 
 #### Troubleshooting ssl fetch errors
