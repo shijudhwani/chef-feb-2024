@@ -1,18 +1,4 @@
-# chef-feb-2024
-
-## Installing Chef Workstation
-https://docs.chef.io/workstation/install_workstation/
-
-## Installing Chef Server
-https://docs.chef.io/server/install_server/
-
-#### Installing Ruby 3.1 in RHEL Chef Server
-```
-
-```
-
-
-## Installing Chef Node
+# Chef Feb 2024
 
 ## Installing Chef Server in RHEL 9.3
 ```
