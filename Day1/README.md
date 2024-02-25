@@ -40,6 +40,23 @@ Expected output
 first-cookbook   0.1.0  
 </pre>
 
+## Adding the cookbook to running of Chef nodes from Chef Workstation machine
+```
+knife node run_list add rhel-chef-node "recipe[first-cookbook]"
+knife node run_list add windows-chef-node "recipe[first-cookbook]"
+```
+
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# knife node run_list add rhel-chef-node "recipe[first-cookbook]"
+rhel-chef-node:
+  run_list: recipe[first-cookbook]  
+
+[root@rhel-chef-workstation ~]# knife node run_list add windows-chef-node "recipe[first-cookbook]"
+windows-chef-node:
+  run_list: recipe[first-cookbook]
+</pre>
+
 ## Running the chef-client convergence on RHEL Chef node
 ```
 knife ssh 'name:rhel-chef-node' 'sudo chef-client' -x root
