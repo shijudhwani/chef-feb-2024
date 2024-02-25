@@ -9,7 +9,7 @@ cd /root
 chef generate cookbook first-cookbook
 ```
 
-Under first-cookbook folder edit recipes/default.rb as shown below as save it
+Under first-cookbook folder edit recipes/default.rb as shown below and save it
 ```
 log 'message' do
   message 'Hello Cookbook!'
