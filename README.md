@@ -1031,7 +1031,7 @@ chef-server-ctl install chef-manage
 
 chef-server-ctl reconfigure
 
-chef-mange-ctl reconfigure
+chef-manage-ctl reconfigure
 ```
 
 Expected output
