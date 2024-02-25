@@ -373,6 +373,126 @@ yum install @ruby:3.1
 ruby --version
 ```
 
+Expected output
+<pre>
+[root@rhel-chef-workstation backup]# yum module list ruby
+Updating Subscription Management repositories.
+Last metadata expiration check: 2:57:51 ago on Sunday 25 February 2024 01:16:21 PM IST.
+Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)
+Name         Stream         Profiles          Summary                                                    
+ruby         2.5 [d]        common [d]        An interpreter of object-oriented scripting language       
+ruby         2.6            common [d]        An interpreter of object-oriented scripting language       
+ruby         2.7            common [d]        An interpreter of object-oriented scripting language       
+ruby         3.0            common [d]        An interpreter of object-oriented scripting language       
+ruby         3.1            common [d]        An interpreter of object-oriented scripting language       
+
+Hint: [d]efault, [e]nabled, [x]disabled, [i]nstalled
+
+[root@rhel-chef-workstation backup]# yum install -y @ruby:3.1
+Updating Subscription Management repositories.
+Last metadata expiration check: 2:58:34 ago on Sunday 25 February 2024 01:16:21 PM IST.
+Dependencies resolved.
+=========================================================================================================
+ Package          Arch   Version                                  Repository                        Size
+=========================================================================================================
+Installing group/module packages:
+ ruby             x86_64 3.1.2-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms  90 k
+Installing dependencies:
+ ruby-default-gems
+                  noarch 3.1.2-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms  79 k
+ ruby-libs        x86_64 3.1.2-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 3.3 M
+ rubygem-io-console
+                  x86_64 0.5.11-141.module+el8.7.0+15051+29b42f0c rhel-8-for-x86_64-appstream-rpms  73 k
+ rubygem-json     x86_64 2.6.1-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 100 k
+ rubygem-psych    x86_64 4.0.3-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms  99 k
+Installing weak dependencies:
+ rubygem-bigdecimal
+                  x86_64 3.1.1-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 114 k
+ rubygem-bundler  noarch 2.3.7-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 449 k
+ rubygem-rdoc     noarch 6.4.0-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 518 k
+ rubygems         noarch 3.3.7-141.module+el8.7.0+15051+29b42f0c  rhel-8-for-x86_64-appstream-rpms 320 k
+Installing module profiles:
+ ruby/common                                                                                            
+Enabling module streams:
+ ruby                    3.1                                                                            
+
+Transaction Summary
+=========================================================================================================
+Install  10 Packages
+
+Total download size: 5.1 M
+Installed size: 16 M
+Downloading Packages:
+(1/10): ruby-default-gems-3.1.2-141.module+el8.7.0+15051+29b42f0c.noarch 185 kB/s |  79 kB     00:00    
+(2/10): ruby-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64.rpm          206 kB/s |  90 kB     00:00    
+(3/10): ruby-libs-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64.rpm     5.2 MB/s | 3.3 MB     00:00    
+(4/10): rubygem-bigdecimal-3.1.1-141.module+el8.7.0+15051+29b42f0c.x86_6 398 kB/s | 114 kB     00:00    
+(5/10): rubygem-bundler-2.3.7-141.module+el8.7.0+15051+29b42f0c.noarch.r 1.4 MB/s | 449 kB     00:00    
+(6/10): rubygem-json-2.6.1-141.module+el8.7.0+15051+29b42f0c.x86_64.rpm  345 kB/s | 100 kB     00:00    
+(7/10): rubygem-psych-4.0.3-141.module+el8.7.0+15051+29b42f0c.x86_64.rpm 338 kB/s |  99 kB     00:00    
+(8/10): rubygem-io-console-0.5.11-141.module+el8.7.0+15051+29b42f0c.x86_ 159 kB/s |  73 kB     00:00    
+(9/10): rubygem-rdoc-6.4.0-141.module+el8.7.0+15051+29b42f0c.noarch.rpm  582 kB/s | 518 kB     00:00    
+(10/10): rubygems-3.3.7-141.module+el8.7.0+15051+29b42f0c.noarch.rpm     196 kB/s | 320 kB     00:01    
+---------------------------------------------------------------------------------------------------------
+Total                                                                    1.9 MB/s | 5.1 MB     00:02     
+Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)                 4.9 MB/s | 5.0 kB     00:00    
+Importing GPG key 0xFD431D51:
+ Userid     : "Red Hat, Inc. (release key 2) <security@redhat.com>"
+ Fingerprint: 567E 347A D004 4ADE 55BA 8A5F 199E 2F91 FD43 1D51
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+Key imported successfully
+Importing GPG key 0xD4082792:
+ Userid     : "Red Hat, Inc. (auxiliary key) <security@redhat.com>"
+ Fingerprint: 6A6A A7C9 7C88 90AE C6AE BFE2 F76F 66C3 D408 2792
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                                                 1/1 
+  Installing       : ruby-libs-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                       1/10 
+  Installing       : rubygem-bigdecimal-3.1.1-141.module+el8.7.0+15051+29b42f0c.x86_64              2/10 
+  Installing       : ruby-default-gems-3.1.2-141.module+el8.7.0+15051+29b42f0c.noarch               3/10 
+  Installing       : rubygem-bundler-2.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                 4/10 
+  Installing       : rubygem-io-console-0.5.11-141.module+el8.7.0+15051+29b42f0c.x86_64             5/10 
+  Installing       : rubygem-json-2.6.1-141.module+el8.7.0+15051+29b42f0c.x86_64                    6/10 
+  Installing       : rubygem-psych-4.0.3-141.module+el8.7.0+15051+29b42f0c.x86_64                   7/10 
+  Installing       : rubygem-rdoc-6.4.0-141.module+el8.7.0+15051+29b42f0c.noarch                    8/10 
+  Installing       : rubygems-3.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                        9/10 
+  Installing       : ruby-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                           10/10 
+  Running scriptlet: ruby-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                           10/10 
+  Verifying        : ruby-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                            1/10 
+  Verifying        : ruby-default-gems-3.1.2-141.module+el8.7.0+15051+29b42f0c.noarch               2/10 
+  Verifying        : ruby-libs-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                       3/10 
+  Verifying        : rubygem-bigdecimal-3.1.1-141.module+el8.7.0+15051+29b42f0c.x86_64              4/10 
+  Verifying        : rubygem-bundler-2.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                 5/10 
+  Verifying        : rubygem-io-console-0.5.11-141.module+el8.7.0+15051+29b42f0c.x86_64             6/10 
+  Verifying        : rubygem-json-2.6.1-141.module+el8.7.0+15051+29b42f0c.x86_64                    7/10 
+  Verifying        : rubygem-psych-4.0.3-141.module+el8.7.0+15051+29b42f0c.x86_64                   8/10 
+  Verifying        : rubygem-rdoc-6.4.0-141.module+el8.7.0+15051+29b42f0c.noarch                    9/10 
+  Verifying        : rubygems-3.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                       10/10 
+Installed products updated.
+
+Installed:
+  ruby-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                                                    
+  ruby-default-gems-3.1.2-141.module+el8.7.0+15051+29b42f0c.noarch                                       
+  ruby-libs-3.1.2-141.module+el8.7.0+15051+29b42f0c.x86_64                                               
+  rubygem-bigdecimal-3.1.1-141.module+el8.7.0+15051+29b42f0c.x86_64                                      
+  rubygem-bundler-2.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                                         
+  rubygem-io-console-0.5.11-141.module+el8.7.0+15051+29b42f0c.x86_64                                     
+  rubygem-json-2.6.1-141.module+el8.7.0+15051+29b42f0c.x86_64                                            
+  rubygem-psych-4.0.3-141.module+el8.7.0+15051+29b42f0c.x86_64                                           
+  rubygem-rdoc-6.4.0-141.module+el8.7.0+15051+29b42f0c.noarch                                            
+  rubygems-3.3.7-141.module+el8.7.0+15051+29b42f0c.noarch                                                
+
+Complete!
+[root@rhel-chef-workstation backup]# ruby --version
+ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux] 
+</pre>
+
+
 Now let's proceed with Chef workstation installation. For other OS refer https://docs.chef.io/workstation/install_workstation/
 ```
 sudo -i
