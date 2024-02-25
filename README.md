@@ -872,3 +872,30 @@ Chef Infra Client version: 17.6.18
 Chef InSpec version: 4.46.13
 Chef CLI version: 5.4.2 
 </pre>
+
+
+## Testing RHEL Chef Node ( As root user )
+```
+chef-client
+```
+
+Expected output
+<pre>
+[root@rhel-chef-node ~]# chef-client
+Chef Infra Client, version 17.10.114
+Patents: https://www.chef.io/patents
+Infra Phase starting
+Resolving cookbooks for run list: []
+Synchronizing cookbooks:
+Installing cookbook gem dependencies:
+Compiling cookbooks...
+Loading Chef InSpec profile files:
+Loading Chef InSpec input files:
+Loading Chef InSpec waiver files:
+[2024-02-25T07:18:03+05:30] WARN: Node rhel-chef-node has an empty run list.
+Converging 0 resources
+
+Running handlers:
+Running handlers complete
+Infra Phase complete, 0/0 resources updated in 03 seconds 
+</pre>
