@@ -904,3 +904,45 @@ Running handlers:
 Running handlers complete
 Infra Phase complete, 0/0 resources updated in 03 seconds 
 </pre>
+
+## Enabling Chef Server Management Console
+```
+chef-server-ctl install chef-manage
+```
+
+Expected output
+<pre>
+[root@rhel-chef-server ~]# chef-server-ctl install chef-manage
+Starting Chef Infra Client, version 16.13.16
+Patents: https://www.chef.io/patents
+resolving cookbooks for run list: ["private-chef::add_ons_wrapper"]
+Synchronizing Cookbooks:
+  - private-chef (0.1.2)
+  - runit (5.1.6)
+  - packagecloud (1.0.1)
+  - enterprise (1.1.0)
+  - yum-epel (4.1.4)
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Converging 4 resources
+Recipe: private-chef::add_ons_wrapper
+  * ruby_block[addon_install_notification_chef-manage] action nothing (skipped due to action :nothing)
+  * remote_file[/var/opt/opscode/local-mode-cache/chef-manage-3.3.96-1.el7.x86_64.rpm] action create
+    - create new file /var/opt/opscode/local-mode-cache/chef-manage-3.3.96-1.el7.x86_64.rpm
+    - update content in file /var/opt/opscode/local-mode-cache/chef-manage-3.3.96-1.el7.x86_64.rpm from none to 889f4e
+    (file sizes exceed 10000000 bytes, diff output suppressed)
+    - restore selinux security context
+  * ruby_block[locate_addon_package_chef-manage] action run
+    - execute the ruby block locate_addon_package_chef-manage
+  * dnf_package[chef-manage] action install
+    - install version 3.3.96-1.el7 of package chef-manage
+  * ruby_block[addon_install_notification_chef-manage] action run
+    - execute the ruby block addon_install_notification_chef-manage
+
+Running handlers:
+-- Installed Add-On Package: chef-manage
+  - #<Class:0x0000000004a94a08>::AddonInstallHandler
+Running handlers complete
+Chef Infra Client finished, 4/5 resources updated in 27 seconds
+[root@rhel-chef-server ~]# 
+</pre>
