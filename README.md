@@ -876,11 +876,16 @@ Chef CLI version: 5.4.2
 
 ## Testing RHEL Chef Node ( As root user )
 ```
+chef-client --version
+
 chef-client
 ```
 
 Expected output
 <pre>
+[root@rhel-chef-node ~]# chef-client --version
+Chef Infra Client: 17.10.114
+ 
 [root@rhel-chef-node ~]# chef-client
 Chef Infra Client, version 17.10.114
 Patents: https://www.chef.io/patents
