@@ -40,7 +40,7 @@ Expected output
 first-cookbook   0.1.0  
 </pre>
 
-## Adding the cookbook to running of Chef nodes from Chef Workstation machine
+## Adding the cookbook to run list of Chef nodes from Chef Workstation machine
 ```
 knife node run_list add rhel-chef-node "recipe[first-cookbook]"
 knife node run_list add windows-chef-node "recipe[first-cookbook]"
