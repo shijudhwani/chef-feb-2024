@@ -128,6 +128,8 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
 </pre>
 
 #### Info - Installing Chef Server
+Latest version of Chef can be download from https://packages.chef.io/files/stable/chef-server/15.9.20/el/8/chef-server-core-15.9.20-1.el8.x86_64.rpm
+
 ```
 wget https://packages.chef.io/files/stable/chef-server/14.9.23/el/8/chef-server-core-14.9.23-1.el7.x86_64.rpm
 sudo rpm -ivh ./chef-server-core-14.9.23-1.el7.x86_64.rpm
