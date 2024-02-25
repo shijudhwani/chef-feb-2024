@@ -854,11 +854,21 @@ Bootstrapping windows-chef-node
 ## Testing Chef installation ( RHEL v8.9 - Chef Workstation )
 ```
 knife node list
+chef -v
 ```
 
 Expected output
 <pre>
 [root@rhel-chef-workstation ~]# knife node list
 rhel-chef-node
-windows-chef-node 
+windows-chef-node
+
+[root@rhel-chef-workstation ~]# chef -v
+Chef Workstation version: 21.10.640
+Chef Habitat version: 1.6.351
+Test Kitchen version: 3.1.0
+Cookstyle version: 7.25.6
+Chef Infra Client version: 17.6.18
+Chef InSpec version: 4.46.13
+Chef CLI version: 5.4.2 
 </pre>
