@@ -908,6 +908,10 @@ Infra Phase complete, 0/0 resources updated in 03 seconds
 ## Enabling Chef Server Management Console
 ```
 chef-server-ctl install chef-manage
+
+chef-server-ctl reconfigure
+
+chef-mange-ctl reconfigure
 ```
 
 Expected output
@@ -945,4 +949,1788 @@ Running handlers:
 Running handlers complete
 Chef Infra Client finished, 4/5 resources updated in 27 seconds
 [root@rhel-chef-server ~]# 
+
+[root@rhel-chef-server ~]# chef-server-ctl reconfigure
+
+Documentation: https://docs.chef.io/server/
+Patents:       https://www.chef.io/patents
+
+Starting Chef Infra Client, version 16.13.16
+Patents: https://www.chef.io/patents
+resolving cookbooks for run list: ["private-chef::default"]
+Synchronizing Cookbooks:
+  - enterprise (1.1.0)
+  - packagecloud (1.0.1)
+  - runit (5.1.6)
+  - private-chef (0.1.2)
+  - yum-epel (4.1.4)
+Installing Cookbook Gems:
+Compiling Cookbooks...
+Recipe: private-chef::default
+  * directory[/etc/opscode] action create (up to date)
+  * directory[/etc/opscode/logrotate.d] action create (up to date)
+  Converging 218 resources
+  * link[/usr/bin/private-chef-ctl] action create (up to date)
+  * link[/usr/bin/chef-server-ctl] action create (up to date)
+  * directory[/etc/opscode] action nothing (skipped due to action :nothing)
+  * directory[/etc/opscode/logrotate.d] action nothing (skipped due to action :nothing)
+  * log[opscode_webui deprecation notice] action write (skipped due to only_if)
+Recipe: private-chef::users
+  * linux_user[opscode] action create (up to date)
+  * group[opscode] action create (up to date)
+Recipe: private-chef::private_keys
+  * file[/etc/opscode/pivotal.pem] action create (up to date)
+  * file[/etc/opscode/webui_priv.pem] action create (up to date)
+  * file[/etc/opscode/webui_pub.pem] action create (up to date)
+Recipe: private-chef::default
+  * file[/etc/opscode/dark_launch_features.json] action create (up to date)
+  * directory[/etc/chef] action create (up to date)
+  * directory[/var/opt/opscode] action create (up to date)
+  * directory[/var/log/opscode] action create (up to date)
+Recipe: enterprise::runit
+  * component_runit_supervisor[private_chef] action create
+    * template[/etc/systemd/system/private_chef-runsvdir-start.service] action create (up to date)
+    * execute[systemctl daemon-reload] action nothing (skipped due to action :nothing)
+    * file[/usr/lib/systemd/system/private_chef-runsvdir-start.service] action delete (up to date)
+    * service[private_chef-runsvdir-start.service] action enable (up to date)
+    * service[private_chef-runsvdir-start.service] action start (up to date)
+     (up to date)
+Recipe: private-chef::sysctl-updates
+  * execute[sysctl-reload] action nothing (skipped due to action :nothing)
+  * bash[dual ip4/ip6 portbind] action run (skipped due to only_if)
+Recipe: private-chef::fix_permissions
+  * execute[find /opt/opscode/embedded/lib/ruby/gems/*/gems -perm /u=x,g=x,o=x -exec chmod 755 {} \;] action run
+    - execute find /opt/opscode/embedded/lib/ruby/gems/*/gems -perm /u=x,g=x,o=x -exec chmod 755 {} \;
+  * execute[find /opt/opscode/embedded/lib/ruby/gems/*/gems -perm /u=r,g=r,o=r ! -perm /u=x -exec chmod 644 {} \;] action run
+    - execute find /opt/opscode/embedded/lib/ruby/gems/*/gems -perm /u=r,g=r,o=r ! -perm /u=x -exec chmod 644 {} \;
+Recipe: private-chef::postgresql
+  * linux_user[opscode-pgsql] action create (up to date)
+  * directory[/var/opt/opscode/postgresql] action create (up to date)
+  * file[/var/opt/opscode/postgresql/.profile] action create (up to date)
+  * directory[/var/log/opscode/postgresql/13.3] action create (up to date)
+  * directory[/var/opt/opscode/postgresql/13.3] action create (up to date)
+  * pg_upgrade[upgrade_if_necessary] action upgrade (up to date)
+  * component_runit_service[postgresql] action enable
+    * template[/var/log/opscode/postgresql/13.3/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[postgresql] action nothing (skipped due to action :nothing)
+    * runit_service[postgresql] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/postgresql] action create (up to date)
+      * template[/opt/opscode/sv/postgresql/run] action create (up to date)
+      * directory[/opt/opscode/sv/postgresql/log] action create (up to date)
+      * directory[/opt/opscode/sv/postgresql/log/main] action create (up to date)
+      * directory[/var/log/postgresql] action create (up to date)
+      * template[/opt/opscode/sv/postgresql/log/config] action create (up to date)
+      * link[/var/log/postgresql/config] action create (up to date)
+      * template[/opt/opscode/sv/postgresql/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/postgresql/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for postgresql service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/postgresql/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/postgresql/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/postgresql/control] action create (up to date)
+      * template[/opt/opscode/sv/postgresql/control/t] action create (up to date)
+      * link[/opt/opscode/init/postgresql] action create (up to date)
+      * file[/opt/opscode/sv/postgresql/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/postgresql] action create (up to date)
+      * ruby_block[wait for postgresql service socket] action run
+        - execute the ruby block wait for postgresql service socket
+    
+  
+Recipe: private-chef::postgresql
+  * private_chef_pg_cluster[/var/opt/opscode/postgresql/13.3/data] action init
+    * directory[/var/opt/opscode/postgresql/13.3/data] action create (up to date)
+    * execute[initialize_cluster_/var/opt/opscode/postgresql/13.3/data] action run (skipped due to not_if)
+    * template[/var/opt/opscode/postgresql/13.3/data/postgresql.conf] action create (up to date)
+    * template[/var/opt/opscode/postgresql/13.3/data/pg_hba.conf] action create (up to date)
+     (up to date)
+  * link[/var/opt/opscode/postgresql/13.3/data] action create (skipped due to not_if)
+  * execute[/opt/opscode/bin/private-chef-ctl start postgresql] action run
+    - execute /opt/opscode/bin/private-chef-ctl start postgresql
+  * ruby_block[wait for postgresql to start] action run
+    - execute the ruby block wait for postgresql to start
+  * pg_user[opscode-pgsql] action create (up to date)
+  * private_chef_pg_database[opscode-pgsql] action create (up to date)
+Recipe: private-chef::erchef_database
+  * pg_user[opscode_chef] action create (up to date)
+  * pg_user[opscode_chef_ro] action create (up to date)
+  * private_chef_pg_database[opscode_chef] action create (up to date)
+  * ruby_block[set opscode_chef ownership] action run
+    - execute the ruby block set opscode_chef ownership
+  * private_chef_pg_sqitch[/opt/opscode/embedded/service/opscode-erchef/schema/baseline] action nothing (skipped due to action :nothing)
+  * private_chef_pg_sqitch[/opt/opscode/embedded/service/opscode-erchef/schema] action nothing (skipped due to action :nothing)
+  * pg_user_table_access[opscode_chef] action create
+    - GRANT CONNECT, TEMPORARY ON DATABASE opscode_chef TO opscode_chef
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO opscode_chef;
+    - GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO opscode_chef
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, UPDATE ON SEQUENCES TO opscode_chef;
+    - GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO opscode_chef
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO opscode_chef;
+    - GRANT INSERT, SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO opscode_chef
+  * pg_user_table_access[opscode_chef_ro] action create
+    - GRANT CONNECT ON DATABASE opscode_chef TO opscode_chef_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO opscode_chef_ro;
+    - GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO opscode_chef_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO opscode_chef_ro;
+    - GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO opscode_chef_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO opscode_chef_ro;
+    - GRANT SELECT ON ALL TABLES IN SCHEMA public TO opscode_chef_ro
+  * directory[/opt/opscode/embedded/service/enterprise-chef-server-schema] action delete (up to date)
+Recipe: private-chef::bifrost_database
+  * pg_user[bifrost] action create (up to date)
+  * pg_user[bifrost_ro] action create (up to date)
+  * private_chef_pg_database[bifrost] action create (up to date)
+  * pg_user_table_access[bifrost] action create
+    - GRANT CONNECT, TEMPORARY ON DATABASE bifrost TO bifrost
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO bifrost;
+    - GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO bifrost
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, UPDATE ON SEQUENCES TO bifrost;
+    - GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO bifrost
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO bifrost;
+    - GRANT INSERT, SELECT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO bifrost
+  * pg_user_table_access[bifrost_ro] action create
+    - GRANT CONNECT ON DATABASE bifrost TO bifrost_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO bifrost_ro;
+    - GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO bifrost_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO bifrost_ro;
+    - GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO bifrost_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO bifrost_ro;
+    - GRANT SELECT ON ALL TABLES IN SCHEMA public TO bifrost_ro
+  * private_chef_pg_sqitch[/opt/opscode/embedded/service/oc_bifrost/db] action nothing (skipped due to action :nothing)
+Recipe: private-chef::oc_id_database
+  * pg_user[oc_id] action create (up to date)
+  * pg_user[oc_id_ro] action create (up to date)
+  * private_chef_pg_database[oc_id] action create (up to date)
+  * pg_user_table_access[oc_id_ro] action create
+    - GRANT CONNECT ON DATABASE oc_id TO oc_id_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO oc_id_ro;
+    - GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO oc_id_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON SEQUENCES TO oc_id_ro;
+    - GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO oc_id_ro
+    - ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO oc_id_ro;
+    - GRANT SELECT ON ALL TABLES IN SCHEMA public TO oc_id_ro
+Recipe: private-chef::oc_bifrost
+  * execute[/opt/opscode/bin/private-chef-ctl stop opscode-authz] action run
+    - execute /opt/opscode/bin/private-chef-ctl stop opscode-authz
+  * service[opscode-authz] action nothing (skipped due to action :nothing)
+  * runit_service[opscode-authz] action disable
+    * ruby_block[disable opscode-authz] action run (skipped due to only_if)
+     (up to date)
+  * directory[/opt/opscode/sv/opscode-authz] action delete (up to date)
+  * directory[/var/opt/opscode/oc_bifrost] action create (up to date)
+  * directory[/var/opt/opscode/oc_bifrost/bin] action create (up to date)
+  * directory[/var/log/opscode/oc_bifrost] action create (up to date)
+  * directory[/var/log/opscode/oc_bifrost/sasl] action create (up to date)
+  * link[/opt/opscode/embedded/service/oc_bifrost/log] action create (up to date)
+  * template[/var/opt/opscode/oc_bifrost/sys.config] action create (up to date)
+  * link[/opt/opscode/embedded/service/oc_bifrost/sys.config] action create (up to date)
+  * template[/var/opt/opscode/oc_bifrost/vm.args] action create (up to date)
+  * link[/opt/opscode/embedded/service/oc_bifrost/vm.args] action create (up to date)
+  * component_runit_service[oc_bifrost] action enable
+    * template[/var/log/opscode/oc_bifrost/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[oc_bifrost] action nothing (skipped due to action :nothing)
+    * runit_service[oc_bifrost] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/oc_bifrost] action create (up to date)
+      * template[/opt/opscode/sv/oc_bifrost/run] action create (up to date)
+      * directory[/opt/opscode/sv/oc_bifrost/log] action create (up to date)
+      * directory[/opt/opscode/sv/oc_bifrost/log/main] action create (up to date)
+      * directory[/var/log/oc_bifrost] action create (up to date)
+      * template[/opt/opscode/sv/oc_bifrost/log/config] action create (up to date)
+      * link[/var/log/oc_bifrost/config] action create (up to date)
+      * template[/opt/opscode/sv/oc_bifrost/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/oc_bifrost/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for oc_bifrost service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/oc_bifrost/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/oc_bifrost/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/oc_bifrost/control] action create (up to date)
+      * template[/opt/opscode/sv/oc_bifrost/control/t] action create (up to date)
+      * link[/opt/opscode/init/oc_bifrost] action create (up to date)
+      * file[/opt/opscode/sv/oc_bifrost/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/oc_bifrost] action create (up to date)
+      * ruby_block[wait for oc_bifrost service socket] action run
+        - execute the ruby block wait for oc_bifrost service socket
+    
+  
+Recipe: private-chef::oc_id
+  * directory[/var/opt/opscode/oc_id] action create (up to date)
+  * directory[/var/opt/opscode/oc_id/config] action create (up to date)
+  * directory[/var/opt/opscode/oc_id/tmp] action create (up to date)
+  * directory[/var/log/opscode/oc_id] action create (up to date)
+  * directory[/opt/opscode/embedded/service/oc_id/log] action delete (skipped due to not_if)
+  * directory[/opt/opscode/embedded/service/oc_id/tmp] action delete (skipped due to not_if)
+  * link[/opt/opscode/embedded/service/oc_id/log] action create (up to date)
+  * link[/opt/opscode/embedded/service/oc_id/tmp] action create (up to date)
+  * file[/var/opt/opscode/oc_id/config/production.yml] action create (up to date)
+  * file[/opt/opscode/embedded/service/oc_id/config/settings/production.yml] action delete (skipped due to not_if)
+  * link[/opt/opscode/embedded/service/oc_id/config/settings/production.yml] action create (up to date)
+  * template[/var/opt/opscode/oc_id/config/secret_token.rb] action create (up to date)
+  * file[/opt/opscode/embedded/service/oc_id/config/initializers/secret_token.rb] action delete (skipped due to not_if)
+  * link[/opt/opscode/embedded/service/oc_id/config/initializers/secret_token.rb] action create (up to date)
+  * template[/var/opt/opscode/oc_id/config/database.yml] action create (up to date)
+  * file[/opt/opscode/embedded/service/oc_id/config/database.yml] action delete (skipped due to not_if)
+  * link[/opt/opscode/embedded/service/oc_id/config/database.yml] action create (up to date)
+  * execute[chown -R opscode:opscode /var/log/opscode/oc_id] action run (skipped due to only_if)
+  * execute[oc_id_schema] action run
+    - execute sensitive resource
+  * component_runit_service[oc_id] action enable
+    * template[/var/log/opscode/oc_id/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[oc_id] action nothing (skipped due to action :nothing)
+    * runit_service[oc_id] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/oc_id] action create (up to date)
+      * template[/opt/opscode/sv/oc_id/run] action create (up to date)
+      * directory[/opt/opscode/sv/oc_id/log] action create (up to date)
+      * directory[/opt/opscode/sv/oc_id/log/main] action create (up to date)
+      * directory[/var/log/oc_id] action create (up to date)
+      * template[/opt/opscode/sv/oc_id/log/config] action create (up to date)
+      * link[/var/log/oc_id/config] action create (up to date)
+      * template[/opt/opscode/sv/oc_id/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/oc_id/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for oc_id service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/oc_id/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/oc_id/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/oc_id/control] action create (up to date)
+      * link[/opt/opscode/init/oc_id] action create (up to date)
+      * file[/opt/opscode/sv/oc_id/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/oc_id] action create (up to date)
+      * ruby_block[wait for oc_id service socket] action run
+        - execute the ruby block wait for oc_id service socket
+    
+  
+Recipe: private-chef::oc_id
+  * directory[/var/opt/opscode/nginx/etc/addon.d] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/addon.d/40-oc_id_upstreams.conf] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/addon.d/40-oc_id_external.conf] action create (up to date)
+Recipe: private-chef::elasticsearch
+  * directory[/var/opt/opscode/elasticsearch] action create (up to date)
+  * directory[/var/opt/opscode/elasticsearch/data] action create (up to date)
+  * directory[/var/opt/opscode/elasticsearch/tmp] action create (up to date)
+  * directory[/var/log/opscode/elasticsearch] action create (up to date)
+  * directory[/var/opt/opscode/elasticsearch/config] action create (up to date)
+  * directory[/var/opt/opscode/elasticsearch/plugins] action create (up to date)
+  * directory[/var/opt/opscode/elasticsearch/scripts] action create (up to date)
+  * execute[sysctl-reload] action nothing (skipped due to action :nothing)
+  * file[/etc/sysctl.conf] action touch (skipped due to not_if)
+  * sysctl[vm.max_map_count] action apply (up to date)
+  * directory[/opt/opscode/service/elasticsearch/env] action delete
+    - delete existing directory /opt/opscode/service/elasticsearch/env
+  * template[/var/opt/opscode/elasticsearch/config/elasticsearch.yml] action create (up to date)
+  * template[/var/opt/opscode/elasticsearch/config/logging.yml] action create (up to date)
+  * template[/var/opt/opscode/elasticsearch/config/jvm.options] action create (up to date)
+  * cookbook_file[/var/opt/opscode/elasticsearch/config/log4j2.properties] action create (up to date)
+  * link[/opt/opscode/embedded/elasticsearch/config] action create (up to date)
+  * component_runit_service[elasticsearch] action enable
+    * template[/var/log/opscode/elasticsearch/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[elasticsearch] action nothing (skipped due to action :nothing)
+    * runit_service[elasticsearch] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/elasticsearch] action create (up to date)
+      * template[/opt/opscode/sv/elasticsearch/run] action create (up to date)
+      * directory[/opt/opscode/sv/elasticsearch/log] action create (up to date)
+      * directory[/opt/opscode/sv/elasticsearch/log/main] action create (up to date)
+      * directory[/var/log/elasticsearch] action create (up to date)
+      * template[/opt/opscode/sv/elasticsearch/log/config] action create (up to date)
+      * link[/var/log/elasticsearch/config] action create (up to date)
+      * template[/opt/opscode/sv/elasticsearch/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/elasticsearch/env] action create
+        - create new directory /opt/opscode/sv/elasticsearch/env
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * ruby_block[Delete unmanaged env files for elasticsearch service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/elasticsearch/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/elasticsearch/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/elasticsearch/control] action create (up to date)
+      * link[/opt/opscode/init/elasticsearch] action create (up to date)
+      * file[/opt/opscode/sv/elasticsearch/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/elasticsearch] action create (up to date)
+      * ruby_block[wait for elasticsearch service socket] action run
+        - execute the ruby block wait for elasticsearch service socket
+    
+  
+Recipe: private-chef::elasticsearch
+  * component_runit_service[elasticsearch] action start
+  Recipe: <Dynamically Defined Resource>
+    * service[elasticsearch] action nothing (skipped due to action :nothing)
+    * runit_service[elasticsearch] action start (up to date)
+     (up to date)
+Recipe: private-chef::elasticsearch_index
+  * elasticsearch_index[chef] action create (up to date)
+Recipe: private-chef::bookshelf
+  * template[/opt/opscode/embedded/bin/cookbook_migration.sh] action create (up to date)
+  * directory[/var/opt/opscode/bookshelf] action create (up to date)
+  * directory[/var/log/opscode/bookshelf] action create (up to date)
+  * directory[/var/log/opscode/bookshelf/sasl] action create (up to date)
+  * directory[/var/opt/opscode/bookshelf/data] action create (up to date)
+  * execute[cookbook migration] action run (skipped due to not_if)
+  * link[/opt/opscode/embedded/service/bookshelf/log] action create (up to date)
+  * template[/var/opt/opscode/bookshelf/sys.config] action create (up to date)
+  * link[/opt/opscode/embedded/service/bookshelf/sys.config] action create (up to date)
+  * template[/var/opt/opscode/bookshelf/vm.args] action create (up to date)
+  * link[/opt/opscode/embedded/service/bookshelf/vm.args] action create (up to date)
+  * component_runit_service[bookshelf] action enable
+    * template[/var/log/opscode/bookshelf/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[bookshelf] action nothing (skipped due to action :nothing)
+    * runit_service[bookshelf] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/bookshelf] action create (up to date)
+      * template[/opt/opscode/sv/bookshelf/run] action create (up to date)
+      * directory[/opt/opscode/sv/bookshelf/log] action create (up to date)
+      * directory[/opt/opscode/sv/bookshelf/log/main] action create (up to date)
+      * directory[/var/log/bookshelf] action create (up to date)
+      * template[/opt/opscode/sv/bookshelf/log/config] action create (up to date)
+      * link[/var/log/bookshelf/config] action create (up to date)
+      * template[/opt/opscode/sv/bookshelf/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/bookshelf/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for bookshelf service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/bookshelf/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/bookshelf/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/bookshelf/control] action create (up to date)
+      * template[/opt/opscode/sv/bookshelf/control/t] action create (up to date)
+      * link[/opt/opscode/init/bookshelf] action create (up to date)
+      * file[/opt/opscode/sv/bookshelf/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/bookshelf] action create (up to date)
+      * ruby_block[wait for bookshelf service socket] action run
+        - execute the ruby block wait for bookshelf service socket
+    
+  
+Recipe: private-chef::opscode-erchef
+  * directory[/var/opt/opscode/opscode-erchef] action create (up to date)
+  * directory[/var/log/opscode/opscode-erchef] action create (up to date)
+  * directory[/var/log/opscode/opscode-erchef/sasl] action create (up to date)
+  * link[/opt/opscode/embedded/service/opscode-erchef/log] action create (up to date)
+  * template[/var/opt/opscode/opscode-erchef/sys.config] action create (up to date)
+  * execute[remove_erchef_siz_files] action nothing (skipped due to action :nothing)
+  * link[/opt/opscode/embedded/service/opscode-erchef/sys.config] action create (up to date)
+  * template[/var/opt/opscode/opscode-erchef/vm.args] action create (up to date)
+  * link[/opt/opscode/embedded/service/opscode-erchef/vm.args] action create (up to date)
+  * component_runit_service[opscode-erchef] action enable
+    * template[/var/log/opscode/opscode-erchef/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[opscode-erchef] action nothing (skipped due to action :nothing)
+    * runit_service[opscode-erchef] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/opscode-erchef] action create (up to date)
+      * template[/opt/opscode/sv/opscode-erchef/run] action create (up to date)
+      * directory[/opt/opscode/sv/opscode-erchef/log] action create (up to date)
+      * directory[/opt/opscode/sv/opscode-erchef/log/main] action create (up to date)
+      * directory[/var/log/opscode-erchef] action create (up to date)
+      * template[/opt/opscode/sv/opscode-erchef/log/config] action create (up to date)
+      * link[/var/log/opscode-erchef/config] action create (up to date)
+      * template[/opt/opscode/sv/opscode-erchef/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/opscode-erchef/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for opscode-erchef service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/opscode-erchef/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/opscode-erchef/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/opscode-erchef/control] action create (up to date)
+      * template[/opt/opscode/sv/opscode-erchef/control/t] action create (up to date)
+      * link[/opt/opscode/init/opscode-erchef] action create (up to date)
+      * file[/opt/opscode/sv/opscode-erchef/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/opscode-erchef] action create (up to date)
+      * ruby_block[wait for opscode-erchef service socket] action run
+        - execute the ruby block wait for opscode-erchef service socket
+    
+  
+Recipe: private-chef::nginx
+  * directory[/var/log/opscode/nginx] action create (up to date)
+  * directory[/var/opt/opscode/nginx] action create (up to date)
+  * directory[/var/opt/opscode/nginx/ca] action create (up to date)
+  * directory[/var/opt/opscode/nginx/cache] action create (up to date)
+  * directory[/var/opt/opscode/nginx/cache-tmp] action create (up to date)
+  * directory[/var/opt/opscode/nginx/etc] action create (up to date)
+  * directory[/var/opt/opscode/nginx/etc/addon.d] action create (up to date)
+  * directory[/var/opt/opscode/nginx/etc/nginx.d] action create (up to date)
+  * directory[/var/opt/opscode/nginx/etc/scripts] action create (up to date)
+  * directory[/var/opt/opscode/nginx/html] action create (up to date)
+  * directory[/var/opt/opscode/nginx/tmp] action create (up to date)
+  * file[/var/log/opscode/nginx/access.log] action create (up to date)
+  * file[/var/log/opscode/nginx/error.log] action create (up to date)
+  * file[/var/log/opscode/nginx/current] action create (up to date)
+  * openssl_x509_certificate[/var/opt/opscode/nginx/ca/rhel-chef-server.crt] action create
+    * file[/var/opt/opscode/nginx/ca/rhel-chef-server.crt] action create_if_missing (up to date)
+    * file[/var/opt/opscode/nginx/ca/rhel-chef-server.key] action create_if_missing (up to date)
+     (up to date)
+  * file[/var/opt/opscode/nginx/ca/rhel-chef-server.crt] action create (up to date)
+  * file[/var/opt/opscode/nginx/ca/rhel-chef-server.key] action create (up to date)
+  * openssl_dhparam[/var/opt/opscode/nginx/ca/dhparams.pem] action create
+    * file[/var/opt/opscode/nginx/ca/dhparams.pem] action create (up to date)
+     (up to date)
+  * remote_directory[/var/opt/opscode/nginx/html] action create
+  Recipe: <Dynamically Defined Resource>
+    * cookbook_file[/var/opt/opscode/nginx/html/404.html] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/503.json] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/favicon.ico] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/index.html] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/css/all.css] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-blocks-b.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-blocks-t.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-body.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-close.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-footer.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-login-form-b.png] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-login-form-t.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-main-b.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-main-t.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bg-sidebar-title.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/btn-go.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/btn-more.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/btn-submit.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-about.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-blog-title.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-blog.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-friends.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-heading.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-next.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-platform.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-platform2-item.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-previous.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-subscribe.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/bullet-subscribe2.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/hd-header.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/image.jpg] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/image2.jpg] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/image3.jpg] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/logo.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/logo.png] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/logo.svg] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/nav-active.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/nav-bg.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/nav-hover.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/photo.jpg] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/separator-blocks.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/separator-footer-bottom.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/separator-footer-list.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/separator-login.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/separator-post-info.gif] action create (up to date)
+    * cookbook_file[/var/opt/opscode/nginx/html/images/upMenuArrow.png] action create (up to date)
+     (up to date)
+Recipe: private-chef::nginx
+  * template[/var/opt/opscode/nginx/etc/scripts/config.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/dispatch.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/resolver.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/route_checks.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/routes.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/dispatch_route.lua] action create (up to date)
+  * template[/var/opt/opscode/nginx/etc/scripts/validator.lua] action create (up to date)
+  * file[/var/opt/opscode/nginx/stats_htpasswd] action create
+    - update content in file /var/opt/opscode/nginx/stats_htpasswd from 19d1e5 to 32af83
+    - suppressed sensitive resource
+    - restore selinux security context
+  * template[/var/opt/opscode/nginx/etc/chef_https_lb.conf] action create
+    - update content in file /var/opt/opscode/nginx/etc/chef_https_lb.conf from 90aabd to 80a69d
+    --- /var/opt/opscode/nginx/etc/chef_https_lb.conf	2024-02-25 00:12:01.760870785 +0530
+    +++ /var/opt/opscode/nginx/etc/.chef-chef_https_lb20240225-8000-1mj1mh5.conf	2024-02-25 11:00:35.138940080 +0530
+    @@ -30,10 +30,6 @@
+         proxy_send_timeout      300;
+         proxy_read_timeout      300;
+     
+    -      add_header X-Frame-Options DENY;
+    -      add_header X-Content-Type-Options nosniff;
+    -      add_header X-XSS-Protection 1;
+    -      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
+     
+         error_page 404 =404 /404.html;
+         error_page 503 =503 /503.json;
+    - restore selinux security context
+  * template[/var/opt/opscode/nginx/etc/chef_http_lb.conf] action create
+    - update content in file /var/opt/opscode/nginx/etc/chef_http_lb.conf from d989f7 to fd6ea3
+    --- /var/opt/opscode/nginx/etc/chef_http_lb.conf	2024-02-25 00:12:01.799870783 +0530
+    +++ /var/opt/opscode/nginx/etc/.chef-chef_http_lb20240225-8000-1r35mx4.conf	2024-02-25 11:00:35.186940079 +0530
+    @@ -20,9 +20,6 @@
+         proxy_send_timeout      300;
+         proxy_read_timeout      300;
+     
+    -      add_header X-Frame-Options DENY;
+    -      add_header X-Content-Type-Options nosniff;
+    -      add_header X-XSS-Protection 1;
+     
+         error_page 404 =404 /404.html;
+         error_page 503 =503 /503.json;
+    - restore selinux security context
+  * template[/var/opt/opscode/nginx/etc/nginx.conf] action create (up to date)
+  * cookbook_file[/var/opt/opscode/nginx/etc/addon.d/README.md] action create (up to date)
+  * component_runit_service[nginx] action enable
+    * template[/var/log/opscode/nginx/config] action create (up to date)
+  Recipe: <Dynamically Defined Resource>
+    * service[nginx] action nothing (skipped due to action :nothing)
+    * runit_service[nginx] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/nginx] action create (up to date)
+      * template[/opt/opscode/sv/nginx/run] action create (up to date)
+      * directory[/opt/opscode/sv/nginx/log] action create (up to date)
+      * directory[/opt/opscode/sv/nginx/log/main] action create (up to date)
+      * directory[/var/log/nginx] action create (up to date)
+      * template[/opt/opscode/sv/nginx/log/config] action create (up to date)
+      * link[/var/log/nginx/config] action create (up to date)
+      * template[/opt/opscode/sv/nginx/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/nginx/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for nginx service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/nginx/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/nginx/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/nginx/control] action create (up to date)
+      * link[/opt/opscode/init/nginx] action create (up to date)
+      * file[/opt/opscode/sv/nginx/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/nginx] action create (up to date)
+      * ruby_block[wait for nginx service socket] action run
+        - execute the ruby block wait for nginx service socket
+    
+  
+Recipe: private-chef::nginx
+  * component_runit_service[nginx] action start
+  Recipe: <Dynamically Defined Resource>
+    * service[nginx] action nothing (skipped due to action :nothing)
+    * runit_service[nginx] action start (up to date)
+     (up to date)
+Recipe: private-chef::nginx
+  * template[/etc/opscode/logrotate.d/nginx] action create (up to date)
+Recipe: private-chef::opscode-chef-mover
+  * directory[/var/opt/opscode/opscode-chef-mover] action create (up to date)
+  * directory[/var/opt/opscode/opscode-chef-mover/etc] action create (up to date)
+  * directory[/var/opt/opscode/opscode-chef-mover/data] action create (up to date)
+  * directory[/var/log/opscode/opscode-chef-mover] action create (up to date)
+  * directory[/var/log/opscode/opscode-chef-mover/sasl] action create (up to date)
+  * link[/opt/opscode/embedded/service/opscode-chef-mover/log] action create (up to date)
+  * template[/var/opt/opscode/opscode-chef-mover/sys.config] action create (up to date)
+  * link[/opt/opscode/embedded/service/opscode-chef-mover/sys.config] action create (up to date)
+  * template[/var/opt/opscode/opscode-chef-mover/vm.args] action create (up to date)
+  * link[/opt/opscode/embedded/service/opscode-chef-mover/vm.args] action create (up to date)
+  * component_runit_service[opscode-chef-mover] action down
+  Recipe: <Dynamically Defined Resource>
+    * service[opscode-chef-mover] action nothing (skipped due to action :nothing)
+    * runit_service[opscode-chef-mover] action stop (up to date)
+     (up to date)
+Recipe: private-chef::redis_lb
+  * directory[/var/opt/opscode/redis_lb] action create (up to date)
+  * directory[/var/opt/opscode/redis_lb/etc] action create (up to date)
+  * directory[/var/opt/opscode/redis_lb/data] action create (up to date)
+  * directory[/var/log/opscode/redis_lb] action create (up to date)
+  * link[/var/opt/opscode/redis_lb/data] action create (skipped due to not_if)
+  * template[/var/opt/opscode/redis_lb/etc/redis.conf] action create (up to date)
+  * component_runit_service[redis_lb] action enable
+    * template[/var/log/opscode/redis_lb/config] action create (up to date)
+    * runit_service[redis_lb] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/sv/redis_lb] action create (up to date)
+      * template[/opt/opscode/sv/redis_lb/run] action create (up to date)
+      * directory[/opt/opscode/sv/redis_lb/log] action create (up to date)
+      * directory[/opt/opscode/sv/redis_lb/log/main] action create (up to date)
+      * directory[/var/log/redis_lb] action create (up to date)
+      * template[/opt/opscode/sv/redis_lb/log/config] action create (up to date)
+      * link[/var/log/redis_lb/config] action create (up to date)
+      * template[/opt/opscode/sv/redis_lb/log/run] action create (up to date)
+      * directory[/opt/opscode/sv/redis_lb/env] action create (up to date)
+      * ruby_block[Delete unmanaged env files for redis_lb service] action run (skipped due to only_if)
+      * template[/opt/opscode/sv/redis_lb/check] action create (skipped due to only_if)
+      * template[/opt/opscode/sv/redis_lb/finish] action create (skipped due to only_if)
+      * directory[/opt/opscode/sv/redis_lb/control] action create (up to date)
+      * link[/opt/opscode/init/redis_lb] action create (up to date)
+      * file[/opt/opscode/sv/redis_lb/down] action nothing (skipped due to action :nothing)
+      * directory[/opt/opscode/service] action create (up to date)
+      * link[/opt/opscode/service/redis_lb] action create (up to date)
+      * ruby_block[wait for redis_lb service socket] action run
+        - execute the ruby block wait for redis_lb service socket
+    
+  
+  * service[redis_lb] action nothing (skipped due to action :nothing)
+  * runit_service[redis_lb] action restart (up to date)
+  * template[/etc/opscode/logrotate.d/redis_lb] action create (up to date)
+  * ruby_block[set_lb_redis_values] action run
+    - execute the ruby block set_lb_redis_values
+Recipe: private-chef::cleanup
+  * service[postgres] action nothing (skipped due to action :nothing)
+  * runit_service[postgres] action stop (up to date)
+  * runit_service[postgres] action disable
+    * ruby_block[disable postgres] action run (skipped due to only_if)
+     (up to date)
+  * directory[/opt/opscode/sv/postgres] action delete (up to date)
+  * directory[/opt/opscode/embedded/service/chef-server-bootstrap] action delete (up to date)
+  * service[opscode-expander-reindexer] action nothing (skipped due to action :nothing)
+  * runit_service[opscode-expander-reindexer] action stop (up to date)
+  * runit_service[opscode-expander-reindexer] action disable
+    * ruby_block[disable opscode-expander-reindexer] action run (skipped due to only_if)
+     (up to date)
+  * link[/opt/opscode/init/opscode-expander-reindexer] action delete (up to date)
+  * directory[/opt/opscode/sv/opscode-expander-reindexer] action delete (up to date)
+  * component_runit_service[opscode-expander] action disable
+  Recipe: <Dynamically Defined Resource>
+    * service[opscode-expander] action nothing (skipped due to action :nothing)
+    * runit_service[opscode-expander] action disable
+      * ruby_block[disable opscode-expander] action run (skipped due to only_if)
+       (up to date)
+     (up to date)
+Recipe: private-chef::cleanup
+  * directory[/opt/opscode/sv/opscode-expander] action delete (up to date)
+  * component_runit_service[opscode-solr4] action disable
+  Recipe: <Dynamically Defined Resource>
+    * service[opscode-solr4] action nothing (skipped due to action :nothing)
+    * runit_service[opscode-solr4] action disable
+      * ruby_block[disable opscode-solr4] action run (skipped due to only_if)
+       (up to date)
+     (up to date)
+Recipe: private-chef::cleanup
+  * directory[/opt/opscode/sv/opscode-solr4] action delete (up to date)
+  * component_runit_service[rabbitmq] action disable
+  Recipe: <Dynamically Defined Resource>
+    * service[rabbitmq] action nothing (skipped due to action :nothing)
+    * runit_service[rabbitmq] action disable
+      * ruby_block[disable rabbitmq] action run (skipped due to only_if)
+       (up to date)
+     (up to date)
+Recipe: private-chef::cleanup
+  * directory[/opt/opscode/sv/rabbitmq] action delete (up to date)
+Recipe: private-chef::remove_actions
+  * file[/etc/opscode-analytics/webui_priv.pem] action delete (up to date)
+  * file[/etc/opscode-analytics/actions-source.json] action delete (up to date)
+Recipe: private-chef::private-chef-sh
+  * template[/etc/opscode/private-chef.sh] action create (up to date)
+Recipe: private-chef::oc-chef-pedant
+  * directory[/var/opt/opscode/oc-chef-pedant] action create (up to date)
+  * directory[/var/opt/opscode/oc-chef-pedant/etc] action create (up to date)
+  * directory[/var/log/opscode/oc-chef-pedant] action create (up to date)
+  * template[/var/opt/opscode/oc-chef-pedant/etc/pedant_config.rb] action create (up to date)
+Recipe: private-chef::log_cleanup
+  * cron_d[opc_log_cleanup] action delete
+    * file[legacy named cron.d file] action delete (up to date)
+    * file[/etc/cron.d/opc_log_cleanup] action delete (up to date)
+     (up to date)
+  * cron_d[opc_logrotate.cron] action delete
+    * file[legacy named cron.d file] action delete (up to date)
+    * file[/etc/cron.d/opc_logrotate-cron] action delete (up to date)
+     (up to date)
+  * template[/etc/opscode/logrotate.conf] action create (up to date)
+  * template[/etc/cron.hourly/opc_logrotate] action create (up to date)
+Recipe: private-chef::partybus
+  * directory[/var/opt/opscode/upgrades] action create (up to date)
+  * directory[/var/opt/opscode/upgrades/etc] action create (up to date)
+  * directory[/opt/opscode/embedded/service/partybus] action create (up to date)
+  * template[/var/opt/opscode/upgrades/etc/config.rb] action create (up to date)
+  * link[/opt/opscode/embedded/service/partybus/config.rb] action create (up to date)
+  * execute[set initial migration level] action nothing (skipped due to action :nothing)
+  * ruby_block[migration-level file check] action nothing (skipped due to action :nothing)
+Recipe: private-chef::ctl_config
+  * template[/etc/opscode/pivotal.rb] action create (up to date)
+Recipe: private-chef::default
+  * file[/etc/opscode/chef-server-running.json] action create
+    - update content in file /etc/opscode/chef-server-running.json from 444e65 to 90bf3a
+    --- /etc/opscode/chef-server-running.json	2024-02-25 00:12:13.693870055 +0530
+    +++ /etc/opscode/.chef-chef-server-running20240225-8000-1odew6.json	2024-02-25 11:00:36.201940076 +0530
+    @@ -543,7 +543,7 @@
+           "solr_ibrowse_options": "[{connect_timeout, 10000}]"
+         },
+         "bootstrap": {
+    -      "enable": true
+    +      "enable": false
+         },
+         "estatsd": {
+           "enable": true,
+    - restore selinux security context
+  * ruby_block[print reconfigure warnings] action run
+    - execute the ruby block print reconfigure warnings
+Recipe: private-chef::nginx
+  * component_runit_service[nginx] action restart
+  Recipe: <Dynamically Defined Resource>
+    * service[nginx] action nothing (skipped due to action :nothing)
+    * runit_service[nginx] action restart (up to date)
+     (up to date)
+
+Running handlers:
+Running handlers complete
+Chef Infra Client finished, 44/494 resources updated in 21 seconds
+Chef Server Reconfigured!
+
+[root@rhel-chef-server ~]# chef-manage-ctl reconfigure
+Chef Infra Client, version 17.5.22
+Patents: https://www.chef.io/patents
+Infra Phase starting
+Resolving cookbooks for run list: ["omnibus-chef-manage::default"]
+Synchronizing cookbooks:
+  - chef-server-ingredient (0.5.2)
+  - omnibus-chef-manage (1.0.0)
+  - enterprise (1.2.0)
+  - private_chef_addon (0.2.0)
+  - packagecloud (2.0.6)
+  - runit (5.1.7)
+  - unicorn (3.0.0)
+  - chef-ingredient (0.11.3)
+  - apt-chef (3.0.0)
+  - yum-epel (5.0.6)
+  - yum-chef (4.0.0)
+Installing cookbook gem dependencies:
+Compiling cookbooks...
+Loading Chef InSpec profile files:
+Loading Chef InSpec input files:
+Loading Chef InSpec waiver files:
+Recipe: omnibus-chef-manage::default
+  * private_chef_addon[chef-manage] action create
+    * directory[/opt/chef-manage] action create
+      - change mode from '0755' to '0775'
+      - restore selinux security context
+    * directory[/var/opt/chef-manage] action create
+      - create new directory /var/opt/chef-manage
+      - change mode from '' to '0775'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+    * directory[/var/opt/chef-manage/etc] action create
+      - create new directory /var/opt/chef-manage/etc
+      - change mode from '' to '0775'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+    * directory[/var/opt/chef-manage/tmp] action create
+      - create new directory /var/opt/chef-manage/tmp
+      - change mode from '' to '0775'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+    * directory[/var/log/chef-manage] action create
+      - create new directory /var/log/chef-manage
+      - change mode from '' to '0775'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+    * linux_user[opscode] action create (up to date)
+    * group[opscode] action create (up to date)
+    * directory[/var/log/chef-manage/web] action create
+      - create new directory /var/log/chef-manage/web
+      - change mode from '' to '0700'
+      - change owner from '' to 'opscode'
+      - restore selinux security context
+    * directory[/var/log/chef-manage/worker] action create
+      - create new directory /var/log/chef-manage/worker
+      - change mode from '' to '0700'
+      - change owner from '' to 'opscode'
+      - restore selinux security context
+  
+Recipe: omnibus-chef-manage::config
+  * directory[/etc/chef-manage] action create
+    - create new directory /etc/chef-manage
+    - change mode from '' to '0700'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  Converging 36 resources
+Recipe: omnibus-chef-manage::default
+  * directory[/opt/chef-manage/embedded/cookbooks/local-mode-cache] action delete (up to date)
+  * private_chef_addon[chef-manage] action nothing (skipped due to action :nothing)
+  * component_runit_supervisor[opscode-manage] action delete
+    * execute[systemctl daemon-reload] action nothing (skipped due to action :nothing)
+    * service[opscode-manage-runsvdir-start.service] action stop (up to date)
+    * service[opscode-manage-runsvdir-start.service] action disable (up to date)
+    * file[/etc/systemd/system/opscode-manage-runsvdir-start.service] action delete (up to date)
+     (up to date)
+Recipe: enterprise::runit
+  * component_runit_supervisor[chef-manage] action create
+    * template[/etc/systemd/system/chef-manage-runsvdir-start.service] action create
+      - create new file /etc/systemd/system/chef-manage-runsvdir-start.service
+      - update content in file /etc/systemd/system/chef-manage-runsvdir-start.service from none to 7f3415
+      --- /etc/systemd/system/chef-manage-runsvdir-start.service	2024-02-25 11:02:23.204939667 +0530
+      +++ /etc/systemd/system/.chef-chef-manage-runsvdir-start20240225-21931-mrq8fo.service	2024-02-25 11:02:23.204939667 +0530
+      @@ -1 +1,13 @@
+      +[Unit]
+      +Description=chef-manage Runit Process Supervisor
+      +After=network.target auditd.service
+      +
+      +[Service]
+      +ExecStart=/opt/chef-manage/embedded/bin/runsvdir-start
+      +Restart=always
+      +# only valid for systemd >= 228
+      +TasksMax=infinity
+      +
+      +[Install]
+      +WantedBy=multi-user.target
+      - change mode from '' to '0644'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+    * execute[systemctl daemon-reload] action nothing (skipped due to action :nothing)
+    * execute[systemctl daemon-reload] action run
+      - execute systemctl daemon-reload
+    * file[/usr/lib/systemd/system/chef-manage-runsvdir-start.service] action delete (up to date)
+    * service[chef-manage-runsvdir-start.service] action enable
+      - enable service service[chef-manage-runsvdir-start.service]
+    * service[chef-manage-runsvdir-start.service] action start
+      - start service service[chef-manage-runsvdir-start.service]
+  
+Recipe: omnibus-chef-manage::config
+  * directory[/etc/chef-manage] action create (up to date)
+  * private_chef_addon[chef-manage] action create
+    * directory[/opt/chef-manage] action create (up to date)
+    * directory[/var/opt/chef-manage] action create (up to date)
+    * directory[/var/opt/chef-manage/etc] action create (up to date)
+    * directory[/var/opt/chef-manage/tmp] action create (up to date)
+    * directory[/var/log/chef-manage] action create (up to date)
+    * linux_user[opscode] action create
+      - alter user opscode
+      - change shell from /usr/sbin/nologin to /bin/sh
+    * group[opscode] action create (up to date)
+    * directory[/var/log/chef-manage/web] action create (up to date)
+    * directory[/var/log/chef-manage/worker] action create (up to date)
+    * directory[/var/log/chef-manage/events] action create
+      - create new directory /var/log/chef-manage/events
+      - change mode from '' to '0700'
+      - change owner from '' to 'opscode'
+      - restore selinux security context
+  
+  * file[/var/opt/chef-manage/etc/newrelic.yml] action create
+    - create new file /var/opt/chef-manage/etc/newrelic.yml
+    - update content in file /var/opt/chef-manage/etc/newrelic.yml from none to 910d34
+    --- /var/opt/chef-manage/etc/newrelic.yml	2024-02-25 11:02:24.038939664 +0530
+    +++ /var/opt/chef-manage/etc/.chef-newrelic20240225-21931-u5ljvc.yml	2024-02-25 11:02:24.038939664 +0530
+    @@ -1 +1,6 @@
+    +---
+    +development:
+    +  monitor_mode: false
+    +production:
+    +  monitor_mode: false
+    - change mode from '' to '0600'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * file[/var/opt/chef-manage/etc/settings.yml] action create
+    - create new file /var/opt/chef-manage/etc/settings.yml
+    - update content in file /var/opt/chef-manage/etc/settings.yml from none to f00ee4
+    --- /var/opt/chef-manage/etc/settings.yml	2024-02-25 11:02:24.084939664 +0530
+    +++ /var/opt/chef-manage/etc/.chef-settings20240225-21931-58epcx.yml	2024-02-25 11:02:24.084939664 +0530
+    @@ -1 +1,111 @@
+    +---
+    +sysvinit_id: CM
+    +chef_base_path: "/opt/opscode"
+    +install_path: "/opt/chef-manage"
+    +var_path: "/var/opt/chef-manage"
+    +config_path: "/var/opt/chef-manage/etc"
+    +log_path: "/var/log/chef-manage"
+    +tmp_path: "/var/opt/chef-manage/tmp"
+    +web:
+    +  log_directory: "/var/log/chef-manage/web"
+    +  log_rotation:
+    +    file_maxbytes: 104857600
+    +    num_to_keep: 10
+    +worker:
+    +  log_directory: "/var/log/chef-manage/worker"
+    +  log_rotation:
+    +    file_maxbytes: 104857600
+    +    num_to_keep: 10
+    +redis:
+    +  log_directory: "/var/log/chef-manage/redis"
+    +  log_rotation:
+    +    file_maxbytes: 104857600
+    +    num_to_keep: 10
+    +  host: localhost
+    +  port: 11002
+    +  url: redis://localhost:11002/0
+    +services:
+    +  web:
+    +    enable: true
+    +  worker:
+    +    enable: true
+    +  events: {}
+    +webapp:
+    +  worker_processes: 4
+    +  port: 9462
+    +  listen: 127.0.0.1:9462
+    +  backlog: 1024
+    +  tcp_nodelay: true
+    +  worker_timeout: 3600
+    +  min_request: 3072
+    +  max_request: 4096
+    +  min_memory: 120
+    +  max_memory: 150
+    +ssl_verify_mode: verify_none
+    +trusted_certs_dir: ''
+    +ssl_client_cert: ''
+    +ssl_client_key: ''
+    +ssl_ca_file: ''
+    +user:
+    +  username: opscode
+    +  shell: "/bin/sh"
+    +  home: "/opt/opscode/embedded"
+    +fqdn: rhel-chef-server
+    +chef_server_external_url: https://rhel-chef-server
+    +chef_server_internal_url: https://localhost
+    +origin: rhel-chef-server
+    +public_port: 443
+    +ldap:
+    +  enabled: false
+    +  adjective:
+    +external:
+    +  port: 443
+    +platform:
+    +  public_url: https://rhel-chef-server
+    +  url: https://localhost
+    +  user: pivotal
+    +backbone_paginator_timeout: 120000
+    +chef_documentation_url: https://docs.chef.io
+    +disable_sign_up: false
+    +email_from_address: Chef Notifications <notifications@chef.io>
+    +nginx_addon_prefix: 30
+    +org_creation_enabled: true
+    +runit_timeout: 30
+    +session_timeout: 1440
+    +session_timeout_absolute: 10080
+    +max_login_failures: 7
+    +support_email_address: support@chef.io
+    +support_site_url: https://chef.io/support
+    +support_tickets_url: https://getchef.zendesk.com/hc/en-us/requests/new
+    +chef_title: Chef Infra
+    +disable_upgrade_banner: false
+    +air_gapped: false
+    +events: {}
+    +google_analytics: {}
+    +logging:
+    +  chef_log_level: info
+    +  log_level: info
+    +marketo: {}
+    +eloqua: {}
+    +saml:
+    +  enabled: false
+    +  issuer_url: http://delivery/api/v0
+    +  verify_tls: true
+    +  adjective: SAML
+    +recaptcha:
+    +  enabled: false
+    +  fail_open: true
+    +  verify_url: https://www.google.com/recaptcha/api/siteverify
+    +sentry: {}
+    +secrets:
+    +  provider: chef-secrets-env
+    +  var_name: CHEF_SECRETS_DATA
+    +marketplace:
+    +  sign_up:
+    +    enabled: false
+    +    timeout: 3600
+    +  sentinel:
+    +    file: "/var/opt/chef-manage/marketplace_sentinel"
+    +onetrust:
+    +  enabled: false
+    - change mode from '' to '0600'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * link[/opt/chef-manage/embedded/service/chef-manage/config/settings/production.yml] action create
+    - create symlink at /opt/chef-manage/embedded/service/chef-manage/config/settings/production.yml to /var/opt/chef-manage/etc/settings.yml
+  * link[/opt/chef-manage/embedded/service/chef-manage/config/newrelic.yml] action create
+    - create symlink at /opt/chef-manage/embedded/service/chef-manage/config/newrelic.yml to /var/opt/chef-manage/etc/newrelic.yml
+  * link[/opt/chef-manage/embedded/service/chef-manage/tmp] action create
+    - create symlink at /opt/chef-manage/embedded/service/chef-manage/tmp to /var/opt/chef-manage/tmp
+  * directory[/var/opt/chef-manage/run] action create
+    - create new directory /var/opt/chef-manage/run
+    - change mode from '' to '0700'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+Recipe: omnibus-chef-manage::redis
+  * directory[/var/opt/chef-manage/lib/redis] action create
+    - create new directory /var/opt/chef-manage/lib/redis
+    - change mode from '' to '0700'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * directory[/var/log/chef-manage/redis] action create
+    - create new directory /var/log/chef-manage/redis
+    - change mode from '' to '0700'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * template[/var/opt/chef-manage/etc/redis.conf] action create
+    - create new file /var/opt/chef-manage/etc/redis.conf
+    - update content in file /var/opt/chef-manage/etc/redis.conf from none to 616508
+    --- /var/opt/chef-manage/etc/redis.conf	2024-02-25 11:02:24.219939664 +0530
+    +++ /var/opt/chef-manage/etc/.chef-redis20240225-21931-u36348.conf	2024-02-25 11:02:24.219939664 +0530
+    @@ -1 +1,10 @@
+    +# Redis configuration for chef-manage
+    +#
+    +# Generated by chef-manage-ctl reconfigure
+    +
+    +pidfile /var/opt/chef-manage/run/redis.pid
+    +port 11002
+    +bind 127.0.0.1
+    +loglevel notice
+    +dir /var/opt/chef-manage/lib/redis
+    - change mode from '' to '0600'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * component_runit_service[redis] action enable
+    * template[/var/log/chef-manage/redis/config] action create
+      - create new file /var/log/chef-manage/redis/config
+      - update content in file /var/log/chef-manage/redis/config from none to 5e16ac
+      --- /var/log/chef-manage/redis/config	2024-02-25 11:02:24.268939663 +0530
+      +++ /var/log/chef-manage/redis/.chef-config20240225-21931-l826ts	2024-02-25 11:02:24.268939663 +0530
+      @@ -1 +1,4 @@
+      +# svlogd configuration
+      +s104857600
+      +n10
+      - change mode from '' to '0644'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+  Recipe: <Dynamically Defined Resource>
+    * service[redis] action nothing (skipped due to action :nothing)
+    * runit_service[redis] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/chef-manage/sv/redis] action create
+        - create new directory /opt/chef-manage/sv/redis
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/redis/run] action create
+        - create new file /opt/chef-manage/sv/redis/run
+        - update content in file /opt/chef-manage/sv/redis/run from none to 26c157
+        --- /opt/chef-manage/sv/redis/run	2024-02-25 11:02:24.347939663 +0530
+        +++ /opt/chef-manage/sv/redis/.chef-run20240225-21931-id5xqt	2024-02-25 11:02:24.347939663 +0530
+        @@ -1 +1,11 @@
+        +#!/bin/sh
+        +
+        +exec 2>&1
+        +exec /opt/chef-manage/embedded/bin/chpst \
+        +  -P \
+        +  -U opscode \
+        +  -u opscode \
+        +  env \
+        +  PATH=/opt/chef-manage/embedded/bin:$PATH \
+        +  redis-server /var/opt/chef-manage/etc/redis.conf
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/redis/log] action create
+        - create new directory /opt/chef-manage/sv/redis/log
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/redis/log/main] action create
+        - create new directory /opt/chef-manage/sv/redis/log/main
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/var/log/redis] action create
+        - create new directory /var/log/redis
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/redis/log/config] action create
+        - create new file /opt/chef-manage/sv/redis/log/config
+        - update content in file /opt/chef-manage/sv/redis/log/config from none to e3b0c4
+        (no diff)
+        - change mode from '' to '0644'
+        - restore selinux security context
+      * link[/var/log/redis/config] action create
+        - create symlink at /var/log/redis/config to /opt/chef-manage/sv/redis/log/config
+      * template[/opt/chef-manage/sv/redis/log/run] action create
+        - create new file /opt/chef-manage/sv/redis/log/run
+        - update content in file /opt/chef-manage/sv/redis/log/run from none to 383757
+        --- /opt/chef-manage/sv/redis/log/run	2024-02-25 11:02:24.528939662 +0530
+        +++ /opt/chef-manage/sv/redis/log/.chef-run20240225-21931-yw67d4	2024-02-25 11:02:24.528939662 +0530
+        @@ -1 +1,4 @@
+        +#!/bin/sh
+        +exec /opt/chef-manage/embedded/bin/svlogd \
+        +  -tt /var/log/chef-manage/redis
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/redis/env] action create
+        - create new directory /opt/chef-manage/sv/redis/env
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * ruby_block[Delete unmanaged env files for redis service] action run (skipped due to only_if)
+      * template[/opt/chef-manage/sv/redis/check] action create (skipped due to only_if)
+      * template[/opt/chef-manage/sv/redis/finish] action create (skipped due to only_if)
+      * directory[/opt/chef-manage/sv/redis/control] action create
+        - create new directory /opt/chef-manage/sv/redis/control
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * link[/opt/chef-manage/init/redis] action create
+        - create symlink at /opt/chef-manage/init/redis to /opt/chef-manage/embedded/bin/sv
+      * file[/opt/chef-manage/sv/redis/down] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/redis] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/log/main] action create (up to date)
+        * directory[/var/log/redis] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/log/config] action create (up to date)
+        * link[/var/log/redis/config] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for redis service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/redis/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/redis/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/redis/control] action create (up to date)
+        * link[/opt/chef-manage/init/redis] action create (up to date)
+        * file[/opt/chef-manage/sv/redis/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/redis] action create
+          - create symlink at /opt/chef-manage/service/redis to /opt/chef-manage/sv/redis
+        * ruby_block[wait for redis service socket] action run
+          - execute the ruby block wait for redis service socket
+        - execute the ruby block restart_service
+      * ruby_block[restart_log_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/redis] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/log/main] action create (up to date)
+        * directory[/var/log/redis] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/log/config] action create (up to date)
+        * link[/var/log/redis/config] action create (up to date)
+        * template[/opt/chef-manage/sv/redis/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/redis/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for redis service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/redis/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/redis/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/redis/control] action create (up to date)
+        * link[/opt/chef-manage/init/redis] action create (up to date)
+        * file[/opt/chef-manage/sv/redis/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/redis] action create (up to date)
+        * ruby_block[wait for redis service socket] action run
+          - execute the ruby block wait for redis service socket
+        - execute the ruby block restart_log_service
+      * directory[/opt/chef-manage/service] action create (up to date)
+      * link[/opt/chef-manage/service/redis] action create (up to date)
+      * ruby_block[wait for redis service socket] action run
+        - execute the ruby block wait for redis service socket
+    
+    * runit_service[redis] action reload_log
+      - reload log service
+  
+Recipe: omnibus-chef-manage::web
+  * directory[/var/opt/chef-manage/etc] action create (up to date)
+  * template[/var/opt/chef-manage/etc/unicorn.rb] action create
+    - create new file /var/opt/chef-manage/etc/unicorn.rb
+    - update content in file /var/opt/chef-manage/etc/unicorn.rb from none to e94618
+    --- /var/opt/chef-manage/etc/unicorn.rb	2024-02-25 11:02:31.547939636 +0530
+    +++ /var/opt/chef-manage/etc/.chef-unicorn20240225-21931-gv6p7x.rb	2024-02-25 11:02:31.547939636 +0530
+    @@ -1 +1,35 @@
+    +##
+    +# Unicorn config at /var/opt/chef-manage/etc/unicorn.rb
+    +# Managed by Chef - Local Changes will be Nuked from Orbit (just to be sure)
+    +##
+    +
+    +# What ports/sockets to listen on, and what options for them.
+    +listen "127.0.0.1:9462", {:backlog=>1024, :tcp_nodelay=>true}
+    +
+    +
+    +# What the timeout for killing busy workers is, in seconds
+    +timeout 3600
+    +
+    +# Whether the app should be pre-loaded
+    +preload_app true
+    +
+    +# How many worker processes
+    +worker_processes 4
+    +
+    +
+    +
+    +
+    +# What to do after we fork a worker
+    +after_fork do |server, worker|
+    +  
+    +  Sidekiq.configure_server do |config|
+    +    config.redis = { :url => 'redis://localhost:11002/0' }
+    +  end
+    +  Sidekiq.configure_client do |config|
+    +    config.redis = { :url => 'redis://localhost:11002/0' }
+    +  end
+    +  
+    +end
+    +
+    +
+    - change mode from '' to '0600'
+    - change owner from '' to 'opscode'
+    - restore selinux security context
+  * ruby_block[warn-group-no-user] action run (skipped due to only_if)
+  * template[/opt/chef-manage/embedded/service/chef-manage/config.ru] action create
+    - update content in file /opt/chef-manage/embedded/service/chef-manage/config.ru from 257c24 to a4b801
+    --- /opt/chef-manage/embedded/service/chef-manage/config.ru	2024-01-24 20:23:10.000000000 +0530
+    +++ /opt/chef-manage/embedded/service/chef-manage/.chef-config20240225-21931-eixawp.ru	2024-02-25 11:02:31.593939635 +0530
+    @@ -1,4 +1,23 @@
+    -# This file is overwritten by omnibus-chef-manage::web recipe
+    +# Chef Management Console config.ru is used by Rack-based servers to start
+    +# the application.
+    +#
+    +# Generated by chef-manage-ctl reconfigure
+    +
+    +if defined?(Unicorn)
+    +  require 'unicorn/worker_killer'
+    +
+    +  min_request = 3072
+    +  max_request = 4096
+    +
+    +  # Max requests per worker
+    +  use Unicorn::WorkerKiller::MaxRequests, min_request, max_request
+    +
+    +  min_memory = 125829120
+    +  max_memory = 157286400
+    +
+    +  # Max memory size in bytes per worker
+    +  use Unicorn::WorkerKiller::Oom, min_memory, max_memory
+    +end
+     
+     require ::File.expand_path('../config/environment',  __FILE__)
+     
+    - change owner from 'root' to 'opscode'
+    - restore selinux security context
+  * component_runit_service[web] action enable
+    * template[/var/log/chef-manage/web/config] action create
+      - create new file /var/log/chef-manage/web/config
+      - update content in file /var/log/chef-manage/web/config from none to 5e16ac
+      --- /var/log/chef-manage/web/config	2024-02-25 11:02:31.635939635 +0530
+      +++ /var/log/chef-manage/web/.chef-config20240225-21931-g3j846	2024-02-25 11:02:31.635939635 +0530
+      @@ -1 +1,4 @@
+      +# svlogd configuration
+      +s104857600
+      +n10
+      - change mode from '' to '0644'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+  Recipe: <Dynamically Defined Resource>
+    * service[web] action nothing (skipped due to action :nothing)
+    * runit_service[web] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/chef-manage/sv/web] action create
+        - create new directory /opt/chef-manage/sv/web
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/web/run] action create
+        - create new file /opt/chef-manage/sv/web/run
+        - update content in file /opt/chef-manage/sv/web/run from none to f01af4
+        --- /opt/chef-manage/sv/web/run	2024-02-25 11:02:31.717939635 +0530
+        +++ /opt/chef-manage/sv/web/.chef-run20240225-21931-h2wxlf	2024-02-25 11:02:31.717939635 +0530
+        @@ -1 +1,23 @@
+        +#!/bin/sh
+        +export DIR=/opt/chef-manage/embedded/service/chef-manage
+        +export SVWAIT=30
+        +export PATH=/opt/chef-manage/embedded/bin:$PATH
+        +export HOME=$DIR
+        +
+        +cd $DIR
+        +exec 2>&1
+        +exec veil-env-helper --pack -s manage.secret_token \
+        +                            -s manage.secret_key_base \
+        +                            -s chef-server.webui_key \
+        +                            -o saml.client_id \
+        +                            -o saml.client_secret \
+        +                            -o recaptcha.site_key \
+        +                            -o recaptcha.secret_key \
+        +  -- /opt/chef-manage/embedded/bin/chpst \
+        +  -P \
+        +  -U opscode \
+        +  -u opscode \
+        +    bundle exec unicorn -E production \
+        +      -c /var/opt/chef-manage/etc/unicorn.rb \
+        +      /opt/chef-manage/embedded/service/chef-manage/config.ru
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/web/log] action create
+        - create new directory /opt/chef-manage/sv/web/log
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/web/log/main] action create
+        - create new directory /opt/chef-manage/sv/web/log/main
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/var/log/web] action create
+        - create new directory /var/log/web
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/web/log/config] action create
+        - create new file /opt/chef-manage/sv/web/log/config
+        - update content in file /opt/chef-manage/sv/web/log/config from none to e3b0c4
+        (no diff)
+        - change mode from '' to '0644'
+        - restore selinux security context
+      * link[/var/log/web/config] action create
+        - create symlink at /var/log/web/config to /opt/chef-manage/sv/web/log/config
+      * template[/opt/chef-manage/sv/web/log/run] action create
+        - create new file /opt/chef-manage/sv/web/log/run
+        - update content in file /opt/chef-manage/sv/web/log/run from none to 2cc622
+        --- /opt/chef-manage/sv/web/log/run	2024-02-25 11:02:31.924939634 +0530
+        +++ /opt/chef-manage/sv/web/log/.chef-run20240225-21931-h404fi	2024-02-25 11:02:31.924939634 +0530
+        @@ -1 +1,3 @@
+        +#!/bin/sh
+        +exec /opt/chef-manage/embedded/bin/svlogd -tt /var/log/chef-manage/web
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/web/env] action create
+        - create new directory /opt/chef-manage/sv/web/env
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * ruby_block[Delete unmanaged env files for web service] action run (skipped due to only_if)
+      * template[/opt/chef-manage/sv/web/check] action create (skipped due to only_if)
+      * template[/opt/chef-manage/sv/web/finish] action create (skipped due to only_if)
+      * directory[/opt/chef-manage/sv/web/control] action create
+        - create new directory /opt/chef-manage/sv/web/control
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * link[/opt/chef-manage/init/web] action create
+        - create symlink at /opt/chef-manage/init/web to /opt/chef-manage/embedded/bin/sv
+      * file[/opt/chef-manage/sv/web/down] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/web] action create (up to date)
+        * template[/opt/chef-manage/sv/web/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/log/main] action create (up to date)
+        * directory[/var/log/web] action create (up to date)
+        * template[/opt/chef-manage/sv/web/log/config] action create (up to date)
+        * link[/var/log/web/config] action create (up to date)
+        * template[/opt/chef-manage/sv/web/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for web service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/web/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/web/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/web/control] action create (up to date)
+        * link[/opt/chef-manage/init/web] action create (up to date)
+        * file[/opt/chef-manage/sv/web/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/web] action create
+          - create symlink at /opt/chef-manage/service/web to /opt/chef-manage/sv/web
+        * ruby_block[wait for web service socket] action run
+          - execute the ruby block wait for web service socket
+        - execute the ruby block restart_service
+      * ruby_block[restart_log_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/web] action create (up to date)
+        * template[/opt/chef-manage/sv/web/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/log/main] action create (up to date)
+        * directory[/var/log/web] action create (up to date)
+        * template[/opt/chef-manage/sv/web/log/config] action create (up to date)
+        * link[/var/log/web/config] action create (up to date)
+        * template[/opt/chef-manage/sv/web/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/web/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for web service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/web/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/web/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/web/control] action create (up to date)
+        * link[/opt/chef-manage/init/web] action create (up to date)
+        * file[/opt/chef-manage/sv/web/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/web] action create (up to date)
+        * ruby_block[wait for web service socket] action run
+          - execute the ruby block wait for web service socket
+        - execute the ruby block restart_log_service
+      * directory[/opt/chef-manage/service] action create (up to date)
+      * link[/opt/chef-manage/service/web] action create (up to date)
+      * ruby_block[wait for web service socket] action run
+        - execute the ruby block wait for web service socket
+    
+    * runit_service[web] action reload_log
+      - reload log service
+  
+Recipe: omnibus-chef-manage::web
+  * ruby_block[update marketplace signup sentinel atime] action run (skipped due to only_if)
+Recipe: omnibus-chef-manage::worker
+  * component_runit_service[worker] action enable
+    * template[/var/log/chef-manage/worker/config] action create
+      - create new file /var/log/chef-manage/worker/config
+      - update content in file /var/log/chef-manage/worker/config from none to 5e16ac
+      --- /var/log/chef-manage/worker/config	2024-02-25 11:02:36.732939616 +0530
+      +++ /var/log/chef-manage/worker/.chef-config20240225-21931-6m41mc	2024-02-25 11:02:36.731939616 +0530
+      @@ -1 +1,4 @@
+      +# svlogd configuration
+      +s104857600
+      +n10
+      - change mode from '' to '0644'
+      - change owner from '' to 'root'
+      - change group from '' to 'root'
+      - restore selinux security context
+  Recipe: <Dynamically Defined Resource>
+    * service[worker] action nothing (skipped due to action :nothing)
+    * runit_service[worker] action enable
+      * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+      * directory[/opt/chef-manage/sv/worker] action create
+        - create new directory /opt/chef-manage/sv/worker
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/worker/run] action create
+        - create new file /opt/chef-manage/sv/worker/run
+        - update content in file /opt/chef-manage/sv/worker/run from none to 18d4c3
+        --- /opt/chef-manage/sv/worker/run	2024-02-25 11:02:36.796939616 +0530
+        +++ /opt/chef-manage/sv/worker/.chef-run20240225-21931-527f8c	2024-02-25 11:02:36.793939616 +0530
+        @@ -1 +1,17 @@
+        +#!/bin/sh
+        +export DIR=/opt/chef-manage/embedded/service/chef-manage
+        +export SVWAIT=30
+        +export PATH=/opt/chef-manage/embedded/bin:$PATH
+        +export HOME=$DIR
+        +
+        +cd $DIR
+        +exec 2>&1
+        +exec veil-env-helper --pack -s manage.secret_token \
+        +                            -s manage.secret_key_base \
+        +                            -s chef-server.webui_key \
+        +  -- /opt/chef-manage/embedded/bin/chpst \
+        +  -P \
+        +  -U opscode \
+        +  -u opscode \
+        +     bundle exec sidekiq -e production
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/worker/log] action create
+        - create new directory /opt/chef-manage/sv/worker/log
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/worker/log/main] action create
+        - create new directory /opt/chef-manage/sv/worker/log/main
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/var/log/worker] action create
+        - create new directory /var/log/worker
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * template[/opt/chef-manage/sv/worker/log/config] action create
+        - create new file /opt/chef-manage/sv/worker/log/config
+        - update content in file /opt/chef-manage/sv/worker/log/config from none to e3b0c4
+        (no diff)
+        - change mode from '' to '0644'
+        - restore selinux security context
+      * link[/var/log/worker/config] action create
+        - create symlink at /var/log/worker/config to /opt/chef-manage/sv/worker/log/config
+      * template[/opt/chef-manage/sv/worker/log/run] action create
+        - create new file /opt/chef-manage/sv/worker/log/run
+        - update content in file /opt/chef-manage/sv/worker/log/run from none to 9bb439
+        --- /opt/chef-manage/sv/worker/log/run	2024-02-25 11:02:36.928939615 +0530
+        +++ /opt/chef-manage/sv/worker/log/.chef-run20240225-21931-ldpwtm	2024-02-25 11:02:36.928939615 +0530
+        @@ -1 +1,3 @@
+        +#!/bin/sh
+        +exec /opt/chef-manage/embedded/bin/svlogd -tt /var/log/chef-manage/worker
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * directory[/opt/chef-manage/sv/worker/env] action create
+        - create new directory /opt/chef-manage/sv/worker/env
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * ruby_block[Delete unmanaged env files for worker service] action run (skipped due to only_if)
+      * template[/opt/chef-manage/sv/worker/check] action create (skipped due to only_if)
+      * template[/opt/chef-manage/sv/worker/finish] action create (skipped due to only_if)
+      * directory[/opt/chef-manage/sv/worker/control] action create
+        - create new directory /opt/chef-manage/sv/worker/control
+        - change mode from '' to '0755'
+        - restore selinux security context
+      * link[/opt/chef-manage/init/worker] action create
+        - create symlink at /opt/chef-manage/init/worker to /opt/chef-manage/embedded/bin/sv
+      * file[/opt/chef-manage/sv/worker/down] action nothing (skipped due to action :nothing)
+      * ruby_block[restart_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/worker] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/log/main] action create (up to date)
+        * directory[/var/log/worker] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/log/config] action create (up to date)
+        * link[/var/log/worker/config] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for worker service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/worker/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/worker/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/worker/control] action create (up to date)
+        * link[/opt/chef-manage/init/worker] action create (up to date)
+        * file[/opt/chef-manage/sv/worker/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/worker] action create
+          - create symlink at /opt/chef-manage/service/worker to /opt/chef-manage/sv/worker
+        * ruby_block[wait for worker service socket] action run
+          - execute the ruby block wait for worker service socket
+        - execute the ruby block restart_service
+      * ruby_block[restart_log_service] action run
+        * ruby_block[restart_service] action nothing (skipped due to action :nothing)
+        * ruby_block[restart_log_service] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/sv/worker] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/log] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/log/main] action create (up to date)
+        * directory[/var/log/worker] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/log/config] action create (up to date)
+        * link[/var/log/worker/config] action create (up to date)
+        * template[/opt/chef-manage/sv/worker/log/run] action create (up to date)
+        * directory[/opt/chef-manage/sv/worker/env] action create (up to date)
+        * ruby_block[Delete unmanaged env files for worker service] action run (skipped due to only_if)
+        * template[/opt/chef-manage/sv/worker/check] action create (skipped due to only_if)
+        * template[/opt/chef-manage/sv/worker/finish] action create (skipped due to only_if)
+        * directory[/opt/chef-manage/sv/worker/control] action create (up to date)
+        * link[/opt/chef-manage/init/worker] action create (up to date)
+        * file[/opt/chef-manage/sv/worker/down] action nothing (skipped due to action :nothing)
+        * directory[/opt/chef-manage/service] action create (up to date)
+        * link[/opt/chef-manage/service/worker] action create (up to date)
+        * ruby_block[wait for worker service socket] action run
+          - execute the ruby block wait for worker service socket
+        - execute the ruby block restart_log_service
+      * directory[/opt/chef-manage/service] action create (up to date)
+      * link[/opt/chef-manage/service/worker] action create (up to date)
+      * ruby_block[wait for worker service socket] action run
+        - execute the ruby block wait for worker service socket
+    
+    * runit_service[worker] action reload_log
+      - reload log service
+  
+Recipe: omnibus-chef-manage::events_disable
+  * service[events] action nothing (skipped due to action :nothing)
+  * runit_service[events] action disable
+    * ruby_block[disable events] action run (skipped due to only_if)
+     (up to date)
+Recipe: omnibus-chef-manage::nginx
+  * service[nginx] action nothing (skipped due to action :nothing)
+  * template[/var/opt/opscode/nginx/etc/addon.d/30-chef-manage_upstreams.conf] action create
+    - create new file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_upstreams.conf
+    - update content in file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_upstreams.conf from none to 8b8e0d
+    --- /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_upstreams.conf	2024-02-25 11:02:42.668939593 +0530
+    +++ /var/opt/opscode/nginx/etc/addon.d/.chef-30-chef-manage_upstreams20240225-21931-fih565.conf	2024-02-25 11:02:42.668939593 +0530
+    @@ -1 +1,8 @@
+    +# Chef Management Console Nginx config upstreams
+    +#
+    +# Generated by chef-manage-ctl reconfigure
+    +
+    +upstream chef_manage_webapp {
+    +  server 127.0.0.1:9462;
+    +}
+    - change mode from '' to '0644'
+    - change owner from '' to 'root'
+    - change group from '' to 'root'
+    - restore selinux security context
+  * file[/var/opt/opscode/nginx/etc/addon.d/30-opscode-manage_upstreams.conf] action delete (up to date)
+  * template[/var/opt/opscode/nginx/etc/addon.d/30-chef-manage_internal.conf] action create
+    - create new file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_internal.conf
+    - update content in file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_internal.conf from none to ec5842
+    --- /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_internal.conf	2024-02-25 11:02:42.728939593 +0530
+    +++ /var/opt/opscode/nginx/etc/addon.d/.chef-30-chef-manage_internal20240225-21931-lpkzst.conf	2024-02-25 11:02:42.728939593 +0530
+    @@ -1 +1,4 @@
+    +# Chef Management Console Nginx config for internal LB
+    +#
+    +# Generated by chef-manage-ctl reconfigure
+    - change mode from '' to '0644'
+    - change owner from '' to 'root'
+    - change group from '' to 'root'
+    - restore selinux security context
+  * file[/var/opt/opscode/nginx/etc/addon.d/30-opscode-manage_internal.conf] action delete (up to date)
+  * template[/var/opt/opscode/nginx/etc/addon.d/30-chef-manage_external.conf] action create
+    - create new file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_external.conf
+    - update content in file /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_external.conf from none to fae77f
+    --- /var/opt/opscode/nginx/etc/addon.d/30-chef-manage_external.conf	2024-02-25 11:02:42.771939593 +0530
+    +++ /var/opt/opscode/nginx/etc/addon.d/.chef-30-chef-manage_external20240225-21931-f3x1j6.conf	2024-02-25 11:02:42.771939593 +0530
+    @@ -1 +1,19 @@
+    +# Chef Management Console Nginx config for External LB.
+    +#
+    +# Generated by chef-manage-ctl reconfigure
+    +
+    +add_header Referrer-Policy 'strict-origin';
+    +add_header Permissions-Policy "camera=(), payment=(), microphone=(), gyroscope=(), magnetometer=(), midi=(), geolocation=()";
+    +
+    +# Asset configuration
+    +location ~ ^/assets/ {
+    +  root /opt/chef-manage/embedded/service/chef-manage/public;
+    +  expires 1y;
+    +  add_header Cache-Control public;
+    +
+    +  add_header ETag "";
+    +  break;
+    +}
+    +
+    +set $add_on_override_upstream "chef_manage_webapp";
+    - change mode from '' to '0644'
+    - change owner from '' to 'root'
+    - change group from '' to 'root'
+    - restore selinux security context
+  * file[/var/opt/opscode/nginx/etc/addon.d/30-opscode-manage_external.conf] action delete (up to date)
+  * template[/var/opt/opscode/nginx/etc/nginx.d/manage.conf] action delete (up to date)
+Recipe: omnibus-chef-manage::default
+  * link[/usr/bin/chef-manage-ctl] action create (up to date)
+  * link[/usr/bin/opscode-manage-ctl] action create (up to date)
+  * file[/var/opt/chef-manage/etc/chef-manage-running.json] action create
+    - create new file /var/opt/chef-manage/etc/chef-manage-running.json
+    - update content in file /var/opt/chef-manage/etc/chef-manage-running.json from none to ee905f
+    --- /var/opt/chef-manage/etc/chef-manage-running.json	2024-02-25 11:02:42.848939592 +0530
+    +++ /var/opt/chef-manage/etc/.chef-chef-manage-running20240225-21931-z219ot.json	2024-02-25 11:02:42.848939592 +0530
+    @@ -1 +1,152 @@
+    +{
+    +  "chef-manage": {
+    +    "sysvinit_id": "CM",
+    +    "chef_base_path": "/opt/opscode",
+    +    "install_path": "/opt/chef-manage",
+    +    "var_path": "/var/opt/chef-manage",
+    +    "config_path": "/var/opt/chef-manage/etc",
+    +    "log_path": "/var/log/chef-manage",
+    +    "tmp_path": "/var/opt/chef-manage/tmp",
+    +    "web": {
+    +      "log_directory": "/var/log/chef-manage/web",
+    +      "log_rotation": {
+    +        "file_maxbytes": 104857600,
+    +        "num_to_keep": 10
+    +      }
+    +    },
+    +    "worker": {
+    +      "log_directory": "/var/log/chef-manage/worker",
+    +      "log_rotation": {
+    +        "file_maxbytes": 104857600,
+    +        "num_to_keep": 10
+    +      }
+    +    },
+    +    "redis": {
+    +      "log_directory": "/var/log/chef-manage/redis",
+    +      "log_rotation": {
+    +        "file_maxbytes": 104857600,
+    +        "num_to_keep": 10
+    +      },
+    +      "host": "localhost",
+    +      "port": 11002,
+    +      "url": "redis://localhost:11002/0"
+    +    },
+    +    "services": {
+    +      "web": {
+    +        "enable": true
+    +      },
+    +      "worker": {
+    +        "enable": true
+    +      },
+    +      "events": {
+    +
+    +      }
+    +    },
+    +    "webapp": {
+    +      "worker_processes": 4,
+    +      "port": 9462,
+    +      "listen": "127.0.0.1:9462",
+    +      "backlog": 1024,
+    +      "tcp_nodelay": true,
+    +      "worker_timeout": 3600,
+    +      "min_request": 3072,
+    +      "max_request": 4096,
+    +      "min_memory": 120,
+    +      "max_memory": 150
+    +    },
+    +    "ssl_verify_mode": "verify_none",
+    +    "trusted_certs_dir": "",
+    +    "ssl_client_cert": "",
+    +    "ssl_client_key": "",
+    +    "ssl_ca_file": "",
+    +    "user": {
+    +      "username": "opscode",
+    +      "shell": "/bin/sh",
+    +      "home": "/opt/opscode/embedded"
+    +    },
+    +    "fqdn": "rhel-chef-server",
+    +    "chef_server_external_url": "https://rhel-chef-server",
+    +    "chef_server_internal_url": "https://localhost",
+    +    "origin": "rhel-chef-server",
+    +    "public_port": 443,
+    +    "ldap": {
+    +      "enabled": false,
+    +      "adjective": null
+    +    },
+    +    "external": {
+    +      "port": 443
+    +    },
+    +    "platform": {
+    +      "public_url": "https://rhel-chef-server",
+    +      "url": "https://localhost",
+    +      "user": "pivotal"
+    +    },
+    +    "backbone_paginator_timeout": 120000,
+    +    "chef_documentation_url": "https://docs.chef.io",
+    +    "disable_sign_up": false,
+    +    "email_from_address": "Chef Notifications <notifications@chef.io>",
+    +    "nginx_addon_prefix": 30,
+    +    "org_creation_enabled": true,
+    +    "runit_timeout": 30,
+    +    "session_timeout": 1440,
+    +    "session_timeout_absolute": 10080,
+    +    "max_login_failures": 7,
+    +    "support_email_address": "support@chef.io",
+    +    "support_site_url": "https://chef.io/support",
+    +    "support_tickets_url": "https://getchef.zendesk.com/hc/en-us/requests/new",
+    +    "chef_title": "Chef Infra",
+    +    "disable_upgrade_banner": false,
+    +    "air_gapped": false,
+    +    "events": {
+    +
+    +    },
+    +    "google_analytics": {
+    +
+    +    },
+    +    "logging": {
+    +      "chef_log_level": "info",
+    +      "log_level": "info"
+    +    },
+    +    "marketo": {
+    +
+    +    },
+    +    "eloqua": {
+    +
+    +    },
+    +    "saml": {
+    +      "enabled": false,
+    +      "issuer_url": "http://delivery/api/v0",
+    +      "verify_tls": true,
+    +      "adjective": "SAML"
+    +    },
+    +    "recaptcha": {
+    +      "enabled": false,
+    +      "fail_open": true,
+    +      "verify_url": "https://www.google.com/recaptcha/api/siteverify"
+    +    },
+    +    "sentry": {
+    +
+    +    },
+    +    "secrets": {
+    +      "provider": "chef-secrets-env",
+    +      "var_name": "CHEF_SECRETS_DATA"
+    +    },
+    +    "marketplace": {
+    +      "sign_up": {
+    +        "enabled": false,
+    +        "timeout": 3600
+    +      },
+    +      "sentinel": {
+    +        "file": "/var/opt/chef-manage/marketplace_sentinel"
+    +      }
+    +    },
+    +    "onetrust": {
+    +      "enabled": false
+    +    }
+    +  },
+    +  "run_list": [
+    +  "recipe[omnibus-chef-manage::default]"
+    +]
+    +
+    +}
+    - change mode from '' to '0600'
+    - change owner from '' to 'opscode'
+    - change group from '' to 'root'
+    - restore selinux security context
+Recipe: omnibus-chef-manage::redis
+  * component_runit_service[redis] action restart
+  Recipe: <Dynamically Defined Resource>
+    * service[redis] action nothing (skipped due to action :nothing)
+    * runit_service[redis] action restart (up to date)
+     (up to date)
+Recipe: omnibus-chef-manage::web
+  * component_runit_service[web] action restart
+  Recipe: <Dynamically Defined Resource>
+    * service[web] action nothing (skipped due to action :nothing)
+    * runit_service[web] action restart (up to date)
+     (up to date)
+Recipe: omnibus-chef-manage::nginx
+  * service[nginx] action restart
+    - restart service service[nginx]
+
+Running handlers:
+Running handlers complete
+Infra Phase complete, 96/273 resources updated in 29 seconds
+[2024-02-25T11:02:44+05:30] WARN: This release of Chef Infra Client became end of life (EOL) on May 1st 2023. Please update to a supported release to receive new features, bug fixes, and security updates.
+chef-manage Reconfigured!
 </pre>
