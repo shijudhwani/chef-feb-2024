@@ -1,9 +1,11 @@
 # Day 1
 
-## Lab - Writing your Chef first cookbook 
+## Lab - Writing your first Chef cookbook 
 
 ### Chef Workstation Machine
 ```
+sudo -i
+cd /root
 chef generate cookbook first-cookbook
 ```
 
@@ -66,7 +68,6 @@ rhel-chef-node Running handlers:
 rhel-chef-node Running handlers complete
 rhel-chef-node Infra Phase complete, 0/1 resources updated in 03 seconds 
 </pre>
-
 
 ### Running the convergence on Window nodes
 ```
