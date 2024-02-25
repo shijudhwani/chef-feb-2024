@@ -850,3 +850,15 @@ Bootstrapping windows-chef-node
  [windows-chef-node] Running handlers complete
  [windows-chef-node] Infra Phase complete, 0/0 resources updated in 32 seconds
 </pre>
+
+## Testing Chef installation ( RHEL v8.9 - Chef Workstation )
+```
+knife node list
+```
+
+Expected output
+<pre>
+[root@rhel-chef-workstation ~]# knife node list
+rhel-chef-node
+windows-chef-node 
+</pre>
