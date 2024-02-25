@@ -647,5 +647,200 @@ knife bootstrap windows-chef-node -o winrm -U Administrator -P admin@123 --node-
 
 Expected output
 <pre>
-
+[root@rhel-chef-workstation ~]# knife bootstrap windows-chef-node -o winrm -U Administrator -P admin@123 -N windows-chef-node -p 5985
+Connecting to windows-chef-node using winrm
+Creating new client for windows-chef-node
+Creating new node for windows-chef-node
+Bootstrapping windows-chef-node
+ [windows-chef-node] Checking for existing directory "C:\chef"...
+ [windows-chef-node] Existing directory not found, creating.
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(
+ [windows-chef-node] echo.url = WScript.Arguments.Named("url")  
+ [windows-chef-node]  echo.path = WScript.Arguments.Named("path")  
+ [windows-chef-node]  echo.proxy = null  
+ [windows-chef-node]  echo.'* Vaguely attempt to handle file:// scheme urls by url unescaping and switching all  
+ [windows-chef-node]  echo.'* / into .  Also assume that file:/// is a local absolute path and that file://<foo>  
+ [windows-chef-node]  echo.'* is possibly a network file path.  
+ [windows-chef-node]  echo.If InStr(url, "file://") = 1 Then  
+ [windows-chef-node]  echo.url = Unescape(url)  
+ [windows-chef-node]  echo.If InStr(url, "file:///") = 1 Then  
+ [windows-chef-node]  echo.sourcePath = Mid(url, Len("file:///") + 1)  
+ [windows-chef-node]  echo.Else 
+ [windows-chef-node]  echo.sourcePath = Mid(url, Len("file:") + 1)  
+ [windows-chef-node]  echo.End If  
+ [windows-chef-node]  echo.sourcePath = Replace(sourcePath, "/", "\")  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.Set objFSO = CreateObject("Scripting.FileSystemObject")  
+ [windows-chef-node]  echo.If objFSO.Fileexists(path) Then objFSO.DeleteFile path  
+ [windows-chef-node]  echo.objFSO.CopyFile sourcePath, path, true  
+ [windows-chef-node]  echo.Set objFSO = Nothing  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.Else 
+ [windows-chef-node]  echo.Set objXMLHTTP = CreateObject("MSXML2.ServerXMLHTTP")  
+ [windows-chef-node]  echo.Set wshShell = CreateObject( "WScript.Shell" )  
+ [windows-chef-node]  echo.Set objUserVariables = wshShell.Environment("USER")  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.rem http proxy is optional  
+ [windows-chef-node]  echo.rem attempt to read from HTTP_PROXY env var first  
+ [windows-chef-node]  echo.On Error Resume Next  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.If NOT (objUserVariables("HTTP_PROXY") = "") Then  
+ [windows-chef-node]  echo.proxy = objUserVariables("HTTP_PROXY")  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.rem fall back to named arg  
+ [windows-chef-node]  echo.ElseIf NOT (WScript.Arguments.Named("proxy") = "") Then  
+ [windows-chef-node]  echo.proxy = WScript.Arguments.Named("proxy")  
+ [windows-chef-node]  echo.End If  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.If NOT isNull(proxy) Then  
+ [windows-chef-node]  echo.rem setProxy method is only available on ServerXMLHTTP 6.0+  
+ [windows-chef-node]  echo.Set objXMLHTTP = CreateObject("MSXML2.ServerXMLHTTP.6.0")  
+ [windows-chef-node]  echo.objXMLHTTP.setProxy 2, proxy  
+ [windows-chef-node]  echo.End If  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.On Error Goto 0  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.objXMLHTTP.open "GET", url, false  
+ [windows-chef-node]  echo.objXMLHTTP.send() 
+ [windows-chef-node]  echo.If objXMLHTTP.Status = 200 Then  
+ [windows-chef-node]  echo.Set objADOStream = CreateObject("ADODB.Stream")  
+ [windows-chef-node]  echo.objADOStream.Open 
+ [windows-chef-node]  echo.objADOStream.Type = 1  
+ [windows-chef-node]  echo.objADOStream.Write objXMLHTTP.ResponseBody  
+ [windows-chef-node]  echo.objADOStream.Position = 0  
+ [windows-chef-node]  echo.Set objFSO = Createobject("Scripting.FileSystemObject")  
+ [windows-chef-node]  echo.If objFSO.Fileexists(path) Then objFSO.DeleteFile path  
+ [windows-chef-node]  echo.Set objFSO = Nothing  
+ [windows-chef-node]  echo.objADOStream.SaveToFile path  
+ [windows-chef-node]  echo.objADOStream.Close 
+ [windows-chef-node]  echo.Set objADOStream = Nothing  
+ [windows-chef-node]  echo.End If  
+ [windows-chef-node]  echo.Set objXMLHTTP = Nothing  
+ [windows-chef-node]  echo.End If 
+ [windows-chef-node] ) 1>C:\chef\wget.vbs 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(
+ [windows-chef-node] echo.param( 
+ [windows-chef-node]  echo.   [String] $remoteUrl,  
+ [windows-chef-node]  echo.   [String] $localPath  
+ [windows-chef-node]  echo.) 
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.$ProxyUrl = $env:http_proxy;  
+ [windows-chef-node]  echo.$webClient = new-object System.Net.WebClient;  
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.if ($ProxyUrl -ne '') {  
+ [windows-chef-node]  echo.  $WebProxy = New-Object System.Net.WebProxy($ProxyUrl,$true)  
+ [windows-chef-node]  echo.  $WebClient.Proxy = $WebProxy  
+ [windows-chef-node]  echo.} 
+ [windows-chef-node]  echo. 
+ [windows-chef-node]  echo.$webClient.DownloadFile($remoteUrl, $localPath); 
+ [windows-chef-node] ) 1>C:\chef\wget.ps1 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(
+ [windows-chef-node]  
+ [windows-chef-node]   
+ [windows-chef-node]  
+ [windows-chef-node] ) 
+ [windows-chef-node] Detected Windows Version 10.0 Build 20348
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>goto Version10.0 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>goto architecture_select 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>IF "AMD64" == "x86" IF not defined PROCESSOR_ARCHITEW6432 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>goto chef_installed 
+ [windows-chef-node] Checking for existing Chef Infra Client installation
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>WHERE chef-client  1>nul 2>nul 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>If !ERRORLEVEL! == 0 (
+ [windows-chef-node]  
+ [windows-chef-node]  goto key_create 
+ [windows-chef-node] )  else (
+ [windows-chef-node]  
+ [windows-chef-node]  goto install 
+ [windows-chef-node] ) 
+ [windows-chef-node] No existing installation of Chef Infra Client detected
+ [windows-chef-node] Checking for existing downloaded package at "C:\Users\ADMINI~1\AppData\Local\Temp\chef-client-latest.msi"
+ [windows-chef-node] No existing downloaded packages to delete.
+ [windows-chef-node] Attempting to download client package using PowerShell if available...
+ [windows-chef-node] powershell.exe -ExecutionPolicy Unrestricted -InputFormat None -NoProfile -NonInteractive -File  C:\chef\wget.ps1 "https://omnitruck.chef.io/chef/download?p=windows&pv=2016&m=x86_64&DownloadContext=PowerShell&channel=stable&v=17" "C:\Users\ADMINI~1\AppData\Local\Temp\chef-client-latest.msi"
+ [windows-chef-node] Download via PowerShell succeeded.
+ [windows-chef-node] Installing downloaded client package...
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>msiexec /qn /log "C:\Users\ADMINI~1\AppData\Local\Temp\chef-client-msi6327.log" /i "C:\Users\ADMINI~1\AppData\Local\Temp\chef-client-latest.msi" 
+ [windows-chef-node] Successfully installed Chef Infra Client package.
+ [windows-chef-node] Installation completed successfully
+ [windows-chef-node] Writing validation key...
+ [windows-chef-node] Validation key written.
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(
+ [windows-chef-node] echo.-----BEGIN CERTIFICATE-----  
+ [windows-chef-node]  echo.MIIEDjCCAvagAwIBAgIVAMENppZ34J6NMoZC6L6nlKRQOvZjMA0GCSqGSIb3DQEB 
+ [windows-chef-node]  echo.CwUAME8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdZb3VDb3JwMRMwEQYDVQQLDApP 
+ [windows-chef-node]  echo.cGVyYXRpb25zMRkwFwYDVQQDDBByaGVsLWNoZWYtc2VydmVyMB4XDTI0MDIyNDE4 
+ [windows-chef-node]  echo.NDE0MFoXDTM0MDIyMTE4NDE0MFowTzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1lv 
+ [windows-chef-node]  echo.dUNvcnAxEzARBgNVBAsMCk9wZXJhdGlvbnMxGTAXBgNVBAMMEHJoZWwtY2hlZi1z 
+ [windows-chef-node]  echo.ZXJ2ZXIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDWpM/2tJVnjJhn 
+ [windows-chef-node]  echo.Dphf047HSqEreCYCU/dGjbemjTbscFxw4w+TUo7HIKGGFrbwoev3yM3Msi+R+BAz 
+ [windows-chef-node]  echo.tV6gZIb0wwLQI63JBu9OBlBC+6fwVNJwPkYYFe+ngWD62iI2FPy155vXUQDYVq4D 
+ [windows-chef-node]  echo.IG+q5Z4y9U1MUnTmW8MrKkFrlHHMghwM1hlk5k4qc4QTbZR/HmgRtoOlwCatwbLT 
+ [windows-chef-node]  echo.9Pv/UAvrDNF7LhGOouzaaxnQze5/ZKuyPBTBy6Qhz0aQpQf0p4MYXoRqDye4wM3S 
+ [windows-chef-node]  echo.EWzNmMUw8fkk+b9C50W27+64fOfIxHSt0QZpXBIWK3nxRhNO4ffClLvJGonQ4Cxc 
+ [windows-chef-node]  echo.NH/hqmdfAgMBAAGjgeAwgd0wGwYDVR0RBBQwEoIQcmhlbC1jaGVmLXNlcnZlcjAP 
+ [windows-chef-node]  echo.BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRWU0aD+y6TBG9dM2ajZWb2nenk1jCB 
+ [windows-chef-node]  echo.jQYDVR0jBIGFMIGCgBRWU0aD+y6TBG9dM2ajZWb2nenk1qFTpFEwTzELMAkGA1UE 
+ [windows-chef-node]  echo.BhMCVVMxEDAOBgNVBAoMB1lvdUNvcnAxEzARBgNVBAsMCk9wZXJhdGlvbnMxGTAX 
+ [windows-chef-node]  echo.BgNVBAMMEHJoZWwtY2hlZi1zZXJ2ZXKCFQDBDaaWd+CejTKGQui+p5SkUDr2YzAN 
+ [windows-chef-node]  echo.BgkqhkiG9w0BAQsFAAOCAQEAu8htuXMjsPjuQjIwHBRGMH2je1c9J8s0/0MAxJwH 
+ [windows-chef-node]  echo.uY0/AtI7TSg+Ne/o0h4nNSMT91Gzk0GIq2Hddhc64V4PP+pZvvWVAAOENm+k/QXz 
+ [windows-chef-node]  echo.2m/9C46/ExwHnw8RzPCwDVfh3f2r7Dd5PwhP5AU/ZGf4MfeFIIwnn5Gw2pXSXvBO 
+ [windows-chef-node]  echo.fARDAp95sEXQf7hLfXef/6y8PuliecKu4rHgcPHoR6UrdyW8b/K9DkwrDnK4J83t 
+ [windows-chef-node]  echo.fZ3/7TFVQ1CmFwkzddlfPn6Hp2PGkfsWhmMF5y9qJM5fXpVOGRawRNaMMphBDWD3 
+ [windows-chef-node]  echo.Amr8r4R8MmBEx8eKcM4GhyQXj+jmjJJO4URlQd87vMAfLw==  
+ [windows-chef-node]  echo.-----END CERTIFICATE----- 
+ [windows-chef-node] ) 1>C:\chef/trusted_certs/rhel-chef-server.crt 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(
+ [windows-chef-node] echo.chef_server_url  "https://rhel-chef-server:443/organizations/tektutor"  
+ [windows-chef-node]  echo.validation_client_name "tektutor-validator"  
+ [windows-chef-node]  echo.file_cache_path   "C:\\chef\\cache"  
+ [windows-chef-node]  echo.file_backup_path  "C:\\chef\\backup"  
+ [windows-chef-node]  echo.cache_options     ({:path => "C:\\chef\\cache\\checksums", :skip_expires => true})  
+ [windows-chef-node]  echo.chef_license "accept"  
+ [windows-chef-node]  echo.node_name "windows-chef-node"  
+ [windows-chef-node]  echo.log_level        :auto  
+ [windows-chef-node]  echo.log_location       STDOUT  
+ [windows-chef-node]  echo.trusted_certs_dir "C:\\chef\\trusted_certs" 
+ [windows-chef-node] ) 1>C:\chef\client.rb 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>(echo.{"run_list":[]}) 1>C:\chef\first-boot.json 
+ [windows-chef-node] Starting chef-client to bootstrap the node...
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>SET "PATH=;C:\Windows;\Wbem;\WindowsPowerShell\v1.0\;C:\ruby\bin;C:\opscode\chef\bin;C:\opscode\chef\embedded\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Users\Administrator\AppData\Local\Microsoft\WindowsApps" 
+ [windows-chef-node] 
+ [windows-chef-node] C:\Users\Administrator\Documents>chef-client -c C:\chef\client.rb -j C:\chef\first-boot.json 
+ [windows-chef-node] +---------------------------------------------+
+ [windows-chef-node] âœ” 2 product licenses accepted.
+ [windows-chef-node] +---------------------------------------------+
+ [windows-chef-node] Chef Infra Client, version 17.10.114
+ [windows-chef-node] Patents: https://www.chef.io/patents
+ [windows-chef-node] Infra Phase starting
+ [windows-chef-node] Resolving cookbooks for run list: []
+ [windows-chef-node] Synchronizing cookbooks:
+ [windows-chef-node] Installing cookbook gem dependencies:
+ [windows-chef-node] Compiling cookbooks...
+ [windows-chef-node] Loading Chef InSpec profile files:
+ [windows-chef-node] Loading Chef InSpec input files:
+ [windows-chef-node] Loading Chef InSpec waiver files:
+ [windows-chef-node] [2024-02-24T17:12:25-08:00] WARN: Node windows-chef-node has an empty run list.
+ [windows-chef-node] Converging 0 resources
+ [windows-chef-node] 
+ [windows-chef-node] Running handlers:
+ [windows-chef-node] Running handlers complete
+ [windows-chef-node] Infra Phase complete, 0/0 resources updated in 32 seconds
 </pre>
