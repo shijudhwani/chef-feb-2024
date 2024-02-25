@@ -1,6 +1,12 @@
 # Chef Feb 2024
 
-## Installing Chef Server in RHEL v8.9
+## Please Note
+<pre>
+1. Chef is already installed in your lab machine, hence you don't have to do any installation
+2. The instructions given below are for your reference, hence do not try this in our lab machine
+</pre>
+
+## Info - Installing Chef Server in RHEL v8.9
 ```
 yum module list ruby
 yum install @ruby:3.1
@@ -121,7 +127,7 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
 [root@rhel-chef-server ~]#   
 </pre>
 
-#### Installing Chef Server
+#### Info - Installing Chef Server
 ```
 wget https://packages.chef.io/files/stable/chef-server/14.9.23/el/8/chef-server-core-14.9.23-1.el7.x86_64.rpm
 sudo rpm -ivh ./chef-server-core-14.9.23-1.el7.x86_64.rpm
@@ -304,7 +310,7 @@ User jegan was added to server-admins. This user can now list, read, create, and
 [root@rhel-chef-server ~]#   
 </pre>
 
-#### Open Chef Server ports
+#### Info - Open Chef Server ports
 ```
 firewall-cmd --permanent --add-service https
 firewall-cmd --permanent --add-service http
@@ -346,7 +352,7 @@ public (active)
 </pre>
 
 
-## Make sure your RHEL Chef Server /etc/hosts is updated with Chef Server, Workstation and node IP addresses
+## INfo - Make sure your RHEL Chef Server /etc/hosts is updated with Chef Server, Workstation and node IP addresses
 <pre>
 [root@rhel-chef-server ~]# cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
@@ -358,7 +364,7 @@ public (active)
 192.168.1.151 windows-chef-node 
 </pre>
 
-## Installing Chef Workstation in RHEL v8.9
+## Info - Installing Chef Workstation in RHEL v8.9
 
 #### First we need to install Ruby 3.1
 ```
@@ -465,7 +471,7 @@ jegan.pem                                                                       
 credentials  jegan.pem
 </pre>
 
-#### Download the self-signed certificate from Chef Server to Chef Workstation ( Do this in Chef Workstation Machine )
+#### Info - Download the self-signed certificate from Chef Server to Chef Workstation ( Do this in Chef Workstation Machine )
 ```
 knife ssl fetch
 knife ssl check
@@ -499,7 +505,7 @@ knife node list
 ```
 You will see an empty list.
 
-#### Troubleshooting ssl fetch errors
+#### Info - Troubleshooting ssl fetch errors
 ```
 knife ssl fetch
 ```
@@ -521,7 +527,7 @@ ERROR: Errno::EHOSTUNREACH: No route to host - connect(2) for "rhel-chef-server"
 C:\Windows\system32\drivers\etc\host file
 ```
 
-## Need to enable winrm in windows machine in Powershell
+## Info - Need to enable winrm in windows machine in Powershell
 ```
 winrm quickconfig
 winrm set winrm/config '@{MaxTimeoutms="1800000"}'
@@ -529,7 +535,7 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 winrm set winrm/config/service/auth '@{Basic="true"}'
 ```
 
-## Bootstrapping RHEL Chef Nodes ( Do this from Chef Workstation Machine )
+## Info - Bootstrapping RHEL Chef Nodes ( Do this from Chef Workstation Machine )
 ```
 knife bootstrap rhel-chef-node --ssh-user root --ssh-password admin@123 --node-name rhel-chef-node
 ```
@@ -640,7 +646,7 @@ Running handlers complete
 </pre>
 
 
-## Bootstrapping Windows Chef Nodes ( Do this from Chef Workstation Machine )
+## Info - Bootstrapping Windows Chef Nodes ( Do this from Chef Workstation Machine )
 ```
 knife bootstrap windows-chef-node -o winrm -U Administrator -P admin@123 --node-name windows-chef-node -p 5985`
 ```
