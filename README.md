@@ -496,6 +496,8 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
 
 
 Now let's proceed with Chef workstation installation. For other OS refer https://docs.chef.io/workstation/install_workstation/
+
+Latest version of chef workstation can be downloaded @ https://packages.chef.io/files/stable/chef-workstation/24.2.1058/el/8/chef-workstation-24.2.1058-1.el8.x86_64.rpm
 ```
 sudo -i
 wget https://packages.chef.io/files/stable/chef-workstation/21.10.640/el/8/chef-workstation-21.10.640-1.el8.x86_64.rpm
