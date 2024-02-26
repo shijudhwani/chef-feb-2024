@@ -1029,7 +1029,7 @@ Running handlers complete
 Infra Phase complete, 0/0 resources updated in 03 seconds 
 </pre>
 
-## Enabling Chef Server Management Console
+## Enabling Chef Server Management Console ( Do this on the Chef Server machine )
 ```
 chef-server-ctl install chef-manage
 
