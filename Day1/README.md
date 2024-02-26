@@ -24,8 +24,6 @@
 - Data Store
 - Cookbooks
 
-![Chef Components](server_server.svg)
-
 ## Chef Workstation Components
 
 ## Chef Node Components
