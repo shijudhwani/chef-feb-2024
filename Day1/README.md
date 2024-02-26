@@ -1,4 +1,9 @@
-# Day 1
+#Day 1
+
+## What is Configuration Management?
+- 
+
+
 
 ## Lab - Writing your first Chef cookbook 
 
