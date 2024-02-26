@@ -1,9 +1,34 @@
 #Day 1
 
 ## What is Configuration Management?
-- 
+- Configuration management helps engineering teams build robust and stable systems through the use of tools that automatically manage and monitor updates
+- helps in automating software installation, updates, patches, applying security policies, etc.,
+- Configuration Management Tools available
+  - Puppet
+  - Chef
+  - Salt/SaltStack
+  - Ansible
 
+## Chef Configuration Management Tool
+- requires 3 different types of machines
+  - Chef Server
+  - Chef Workstation
+  - Chef Nodes
+- Chef Nodes are the servers that we automate the software installations via Chef
+- Chef Nodes could be an Unix, Linux, Mac or Windows Machines, they can be even Cisco Router/Switches, any device that supports SSH/WinRM and supports Ruby & PowerShell(Windows)
 
+## Chef Server Components
+- Manage (Web Console)
+- BookShelf
+- Search Index
+- Data Store
+- Cookbooks
+
+![Chef Server](https://github.com/tektutor/chef-feb-2024/assets/12674043/ce73f004-d304-4674-a847-8ab59f0282b9)
+
+## Chef Workstation Components
+
+## Chef Node Components
 
 ## Lab - Writing your first Chef cookbook 
 
