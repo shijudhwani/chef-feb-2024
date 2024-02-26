@@ -24,7 +24,7 @@
 - Data Store
 - Cookbooks
 
-![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/b5325ddb-d906-4c74-a6ad-004c79778a88)
+![Chef Components](server_server.svg)
 
 ## Chef Workstation Components
 
