@@ -960,3 +960,4 @@ cat hello.rb
 
 Expected output
 ![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/359c6496-dd67-4c02-8676-e16ae2ee9915)
+
