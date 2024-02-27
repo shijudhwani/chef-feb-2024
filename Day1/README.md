@@ -17,16 +17,31 @@
 - Chef Nodes are the servers that we automate the software installations via Chef
 - Chef Nodes could be an Unix, Linux, Mac or Windows Machines, they can be even Cisco Router/Switches, any device that supports SSH/WinRM and supports Ruby & PowerShell(Windows)
 
-## Chef Server Components
-- Manage (Web Console)
-- BookShelf
-- Search Index
-- Data Store
-- Cookbooks
+## Chef Server Components ( Developed in Ruby and Erlang )
+- Management Web Console - Web Interface
+- BookShelf - Stores Cookbooks
+- Nginx Load Balancer - all requests to Chef Server is routed via this Chreverse proxy server
+- Postgres Database - Chef Server's Data store
+- Cookbooks, Roles, Recipes are stored in Chef Server
+- Messages - Elastic Search ( supports API for Indexing and Searching )
+- Has built-in Service called chef-server-ctl - monitors and maintain all services in a desired state
 
 ## Chef Workstation Components
+- Chef client - applies cookbooks, roles, policies on workstation machine
+- Chef Inspec - testing and auditing your applications and infrastructure ( security compliance, policy, etc)
+- Chef Habitat - allows you to build and package your applications and deploy them anywhere
+- knife
+  - this is the tool we would use most of the time
+  - helps in uploading recipe, cookbooks, roles, etc
+  - helps in bootstrapping a Chef node
+  - helps in removing a node
+  - helps in running chef-client to force convergence
+- Test Kitchen and Cookstyle - Testing Tools
 
 ## Chef Node Components
+- These are servers managed by Chef Configuration Management Software
+- This can be an onprem server, virtual machine, an AWS ec2 instance, an Azure Virtual Machine, Network Switches/Routers, etc.,
+- Could be a Windows Server, Unix/Linux Server, Mac OS-X
 
 ## Lab - Writing your first Chef cookbook 
 
