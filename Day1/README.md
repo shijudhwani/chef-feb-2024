@@ -938,17 +938,25 @@ Expected output
 ![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/6ac4e327-5009-4114-b962-640889988c1c)
 
 
-## Lab - Ruby comments
+## Lab - Ruby single line comment
 ```
 cat hello.rb
 ```
 
 Expected output
-
-[root@rhel-chef-workstation simple-ruby-scripts]# cat hello.rb 
 <pre>
+[root@rhel-chef-workstation simple-ruby-scripts]# cat hello.rb
+  
 # !/usr/bin/ruby
 
 # This is a single line comment
 puts 'Hello Ruby !'
 </pre>
+
+## Lab - Ruby multi line comment
+```
+cat hello.rb
+```
+
+Expected output
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/359c6496-dd67-4c02-8676-e16ae2ee9915)
