@@ -22,7 +22,8 @@
   - Cookbook - invokes one or more Recipes
   - Role - invokes one or more Cookbooks
   
-## Chef Server Components ( Developed in Ruby and Erlang )
+## Chef Server Overview 
+- Developed in Ruby and Erlang
 - Management Web Console - Web Interface
 - BookShelf - Stores Cookbooks
 - Nginx Load Balancer - all requests to Chef Server is routed via this Chreverse proxy server
@@ -31,7 +32,7 @@
 - Messages - Elastic Search ( supports API for Indexing and Searching )
 - Has built-in Service called chef-server-ctl - monitors and maintain all services in a desired state
 
-## Chef Workstation Components
+## Chef Workstation Overview
 - Chef client - applies cookbooks, roles, policies on workstation machine
 - Chef Inspec - testing and auditing your applications and infrastructure ( security compliance, policy, etc)
 - Chef Habitat - allows you to build and package your applications and deploy them anywhere
@@ -43,10 +44,13 @@
   - helps in running chef-client to force convergence
 - Test Kitchen and Cookstyle - Testing Tools
 
-## Chef Node Components
+## Chef Node Overview
 - These are servers managed by Chef Configuration Management Software
 - This can be an onprem server, virtual machine, an AWS ec2 instance, an Azure Virtual Machine, Network Switches/Routers, etc.,
 - Could be a Windows Server, Unix/Linux Server, Mac OS-X
+- chef-client
+  - is a Chef agent that pulls cookbooks, roles from server and runs them on the machine they are running
+  - by default runs as a stand-alone tool, but we can configure it to run as a service, daemon, cronjob that runs periodically 
 
 ## Lab - Writing your first Chef cookbook 
 
