@@ -16,7 +16,12 @@
   - Chef Nodes
 - Chef Nodes are the servers that we automate the software installations via Chef
 - Chef Nodes could be an Unix, Linux, Mac or Windows Machines, they can be even Cisco Router/Switches, any device that supports SSH/WinRM and supports Ruby & PowerShell(Windows)
-
+- Domain Specific Language(DSL) used is Ruby to automate configuration management
+- The automation code is referred as
+  - Recipe - invokes one or more Resources
+  - Cookbook - invokes one or more Recipes
+  - Role - invokes one or more Cookbooks
+  
 ## Chef Server Components ( Developed in Ruby and Erlang )
 - Management Web Console - Web Interface
 - BookShelf - Stores Cookbooks
