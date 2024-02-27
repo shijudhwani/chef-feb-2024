@@ -913,3 +913,26 @@ Running handlers complete
 Chef Infra Client finished, 45/498 resources updated in 18 seconds
 Chef Server Reconfigured!  
 </pre>
+
+## Ruby basics
+
+## Lab - Writing a hello world application in Ruby
+
+In your Chef workstation, create a folder called /root/simple-ruby-scripts. 
+
+Checking the ruby version installed in Chef Workstation machine
+```
+ruby --version
+```
+
+Let's name this script as hello.rb
+```
+puts 'Hello Ruby'
+```
+Running the hello.rb
+```
+ruby hello.rb
+```
+
+Expected output
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/6ac4e327-5009-4114-b962-640889988c1c)
