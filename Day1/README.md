@@ -936,3 +936,18 @@ ruby hello.rb
 
 Expected output
 ![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/6ac4e327-5009-4114-b962-640889988c1c)
+
+
+## Lab - Ruby comments
+```
+cat hello.rb
+```
+
+Expected output
+
+[root@rhel-chef-workstation simple-ruby-scripts]# cat hello.rb 
+# !/usr/bin/ruby
+<pre>
+# This is a single line comment
+puts 'Hello Ruby !'
+</pre>
