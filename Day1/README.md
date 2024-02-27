@@ -4,10 +4,22 @@
 - Configuration management helps engineering teams build robust and stable systems through the use of tools that automatically manage and monitor updates
 - helps in automating software installation, updates, patches, applying security policies, etc.,
 - Configuration Management Tools available
-  - Puppet
-  - Chef
-  - Salt/SaltStack
-  - Ansible
+  - Puppet Enterprise - Client/Server architecture, uses Pull architecture
+  - Chef Enterprise - Client/Server architecture, uses Pull architecture
+  - Salt/SaltStack - a VMWare Product developed in Python
+  - Red Hat Ansible Tower - an IBM Product
+
+## Puppet High-Level Architecture
+https://www.puppet.com/docs/pe/2019.8/pe_architecture_overview.html
+
+## Chef High-Level Architecture
+https://docs.chef.io/chef_overview/
+
+## Saltstack High-Level Architecture
+https://docs.saltproject.io/en/latest/topics/salt_system_architecture.html#overview
+
+## Ansible High-Level Architecture
+
 
 ## Chef Configuration Management Tool
 - requires 3 different types of machines
