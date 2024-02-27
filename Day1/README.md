@@ -21,6 +21,20 @@ https://docs.saltproject.io/en/latest/topics/salt_system_architecture.html#overv
 ## Ansible High-Level Architecture
 
 
+## Installing latest version of Chef client manually in Unix/Linux/Mac Chef nodes
+This is an alternate way to install chef-client. However, knife bootstrap automatically does it.
+
+```
+curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -v 15.8.23
+```
+
+## Installing latest version of Chef client manually in Windows Chef nodes
+This is an alternate way to install chef-client. However, knife bootstrap automatically does it.
+
+```
+. { iwr -useb https://omnitruck.chef.io/install.ps1 } | iex; install -channel current -project chef-workstation
+```
+
 ## Chef Configuration Management Tool
 - requires 3 different types of machines
   - Chef Server
