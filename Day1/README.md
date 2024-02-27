@@ -946,8 +946,9 @@ cat hello.rb
 Expected output
 
 [root@rhel-chef-workstation simple-ruby-scripts]# cat hello.rb 
-# !/usr/bin/ruby
 <pre>
+# !/usr/bin/ruby
+
 # This is a single line comment
 puts 'Hello Ruby !'
 </pre>
