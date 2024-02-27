@@ -1,4 +1,4 @@
-#Day 1
+# Day 1
 
 ## What is Configuration Management?
 - Configuration management helps engineering teams build robust and stable systems through the use of tools that automatically manage and monitor updates
