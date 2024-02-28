@@ -21,12 +21,12 @@ end
 
 unless platform?(%w{redhat})
   execute "create #{node['wordpress']['db']['database']} database" do
-    command "echo "CREATE DATABASE #{node['wordpress']['db']['name'] | /usr/bin/mysql -u root -p #{node['mysql']['root_password']}"
+    command "echo 'CREATE DATABASE #{node['wordpress']['db']['name']}' | /usr/bin/mysql -u root -p #{node['mysql']['root_password']}"
   end
 end
 
 unless platform?(%w{ubuntu})
   execute "create #{node['wordpress']['db']['database']} database" do
-    command "echo "CREATE DATABASE #{node['wordpress']['db']['name'] | /usr/bin/mysql -u root"
+    command "echo 'CREATE DATABASE #{node['wordpress']['db']['name']}' | /usr/bin/mysql -u root"
   end
 end

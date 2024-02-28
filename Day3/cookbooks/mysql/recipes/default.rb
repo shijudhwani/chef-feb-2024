@@ -17,6 +17,7 @@ service 'enable and start mysql service' do
     service_name 'mysql'
   end
   action [ :enable, :start ]
+  #action [ :nothing ]
 end
 
 
