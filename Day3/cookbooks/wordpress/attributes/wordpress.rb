@@ -1,0 +1,10 @@
+default['wordpress']['dir']="/tmp/wordpress"
+default['wordpress']['db']['name']="tektutor"
+default['wordpress']['db']['user']="root"
+default['wordpress']['db']['password']="root"
+default['wordpress']['keys']['auth']="tektutor"
+default['wordpress']['keys']['secure_auth']="tektutor"
+default['wordpress']['keys']['logged_in']="tektutor"
+default['wordpress']['keys']['nonce']="tektutor"
+default['wordpress']['server_aliases'] = "#{node['fqdn']}"
+

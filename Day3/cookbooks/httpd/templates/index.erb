@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title><%= node['greeting_msg'] %></title<>
+	</head>
+
+	<body>
+		<h3>Hostname : <%= node['hostname'] %></h3>
+		<h3>Ipaddress: <%= node['ipaddress'] %></h3>
+		<h3>OS : <%= node['platform_family'] %> v<%= node['platform_version'] %>
+		<h3>Config Mgr Tool : <%= node['config_mgr_tool'] %> </h3>
+		<h3>Chef version : <%= node['chef version'] %> </h3>
+	</body>
+
+</html>
