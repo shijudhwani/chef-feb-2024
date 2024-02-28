@@ -10,10 +10,12 @@ remote_file "/tmp/latest.tar.gz" do
   mode "0644"
 end
 
+=begin
 execute "download-wordpress" do
   cwd "/tmp"
   command "wget https://wordpress.org/latest.tar.gz" 
 end
+=end
 
 execute "extract-wordpress-compressed-file" do
    cwd "/tmp"

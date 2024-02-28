@@ -22,11 +22,15 @@ end
 unless platform?(%w{redhat})
   execute "create #{node['wordpress']['db']['database']} database" do
     command "echo 'CREATE DATABASE #{node['wordpress']['db']['name']}' | /usr/bin/mysql -u root -p #{node['mysql']['root_password']}"
+    action :run
+    not_if "/usr/bin/mysql -u root -e 'show databases;'"
   end
 end
 
 unless platform?(%w{ubuntu})
   execute "create #{node['wordpress']['db']['database']} database" do
     command "echo 'CREATE DATABASE #{node['wordpress']['db']['name']}' | /usr/bin/mysql -u root"
+    action :run
+    not_if "/usr/bin/mysql -u root -e 'show databases;'"
   end
 end
