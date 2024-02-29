@@ -157,3 +157,18 @@ active
 [root@rhel-chef-workstation tmp]# sudo mv docker-compose /usr/local/bin && sudo chmod +x /usr/local/bin/docker-compose
 [root@rhel-chef-workstation tmp]# sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose   
 </pre>
+
+
+Lab - Test Kitchen
+```
+kitchen list
+kitchen  converge
+```
+
+Expected output
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/9d9d3078-150c-4067-826d-71199482b29c)
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/03a5dfa6-4716-471c-a81f-e956feeb5283)
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/f9a1e334-7043-4a22-8d5a-1a87f9a0f8b9)
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/3bac3d99-eee8-4bb0-b16f-9358c1d3fa4b)
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/40371a1f-69e9-4774-a77a-c1d8ed2b400d)
+![image](https://github.com/tektutor/chef-feb-2024/assets/12674043/a9cfcb1e-cd5d-46e7-ba30-1cda3fb36493)
